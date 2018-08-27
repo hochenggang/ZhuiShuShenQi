@@ -1,0 +1,213 @@
+/* 通用 */
+body {
+    margin: 0%;
+    font-family: STXihei, "Microsoft YaHei";
+    font-family: "Microsoft YaHei", "微软雅黑",STXihei, "华文细黑";
+}
+p {
+    padding: 0%;
+    margin: 0%;
+}
+ul {
+    list-style: none;
+    padding: 0%;
+    margin: 0%;
+}
+li {
+    cursor: pointer;
+}
+
+input::-webkit-input-placeholder{
+    color: #F2F2F2;opacity:.7;
+}
+
+
+/* 头部 */
+#header {
+    background-color: #B93221;
+    min-height: 50px;
+    padding: 0px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#headerLogo,#headerFunc {
+    display: inline-block;
+}
+
+#logoText {
+    color: #F2F2F2;
+    font-weight: bold;
+    display: inline-block;
+    font-size: 1.2rem;
+}
+#searchInputBox {
+    display: flex;
+    align-items: center;
+}
+#searchInput,#searchInput:focus {
+    color: #F2F2F2;
+    background: transparent;
+    border: 1px solid #F2F2F2;
+    font-weight: bold;
+    display: inline-block;
+    border-radius: 100px;
+    padding: 5px 10px;
+    font-weight: lighter;
+    outline: none;
+    display: none;
+
+}
+#headerFunxSearchIcon {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+/* 功能切换 */
+#swich {
+    background-color: #B93221;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.swichListFunc {
+    color: #ccc;
+    cursor: pointer;
+}
+
+#activeSwich {
+    color: #F2F2F2;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+#swichSymble {
+    position: absolute;
+    bottom: -15px;
+    right: .5rem;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0px 10px 10px 10px;
+    border-color: transparent transparent #ffffff transparent;
+}
+
+/* body区域 */
+#body {
+    min-height: 500px;
+    padding: .5rem;
+}
+#noBook {
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#noBook p {
+    font-weight: lighter;
+    color: #ccc;
+}
+#bodyNoBookIcon {
+    margin-bottom: 10px;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+#find {
+    display: none;
+}
+#findList {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.findListItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: .5rem;
+    height: 9rem;
+    width: 6rem;
+    font-size: .9rem;
+    background-color: rgba(185, 51, 33, 0.05);
+    /* border: 2px solid #B93221; */
+}
+
+#render {
+    display: none;
+}
+.rankUl {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.rankUlTitle {
+    margin: 5px;
+    padding: 5px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+.rankItem {
+    height: 1.2rem;
+    margin: 5px;
+    padding: 5px 8px;
+    border: 1px solid #B93221;
+    border-radius: 50px;
+    font-size: .8rem;
+}
+.shortBook {
+    display: flex;
+    flex-direction: column;
+}
+.shortBookItem {
+    /* display: flex;
+    flex-direction: column; */
+    padding: .5rem;
+    background-color: rgba(185, 51, 33, 0.03);
+    border: 1px solid rgba(185, 51, 33, 0.05);
+    margin-bottom: .5rem;
+
+}
+.shortBookItemTitle {
+    display: block;
+    font-size: 1rem;
+    color: #B93221;
+
+}
+.shortBookItemAuthor {
+    display: block;
+    font-size: .8rem;
+    font-weight: lighter;
+    color: #B93221;
+    
+}
+.shortBookItemShortIntro {
+    display: block;
+    font-size: .9rem;
+    font-weight: lighter;
+}
+.shortBookItemretentionRatio {
+    margin-right: 15px;
+    font-size: .8rem;
+    font-weight: lighter;
+    color: #B93221;
+}
+.shortBookItemlatelyFollower {
+    font-size: .8rem;
+    font-weight: lighter;
+    color: #B93221;
+}
+.renderMore {
+    padding: .5rem;
+    background-color: rgba(185, 51, 33, 0.05);
+    cursor: pointer;
+    text-align: center;
+}
