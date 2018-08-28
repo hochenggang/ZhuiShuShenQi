@@ -10,7 +10,7 @@
 		},
 		"书籍的分类详情(子类为可选参数))": {
 			"method": "GET",
-			"url": "/api/v1/zssq/catalog/detail?major=<主分类>(&mins=<子类>)"
+			"url": "/api/v1/zssq/catalog/detail?gender=<>&major=<>&minor=<>&start=<>&limit=<>"
 		},
 		"排名分类": {
 			"method": "GET",

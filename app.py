@@ -16,7 +16,7 @@ def index():
             '搜索书名或者作者':{'url':'/api/v1/zssq/search/<关键字或作者>','method':'GET'},
             '获取某书的章节内容':{'url':'/api/v1/zssq/chapter?link=<章节链接>','method':'GET'},
             '书籍的分类及子类':{'url':'/api/v1/zssq/catalog','method':'GET'},
-            '书籍的分类详情(子类为可选参数))':{'url':'/api/v1/zssq/catalog/detail?major=<主分类>(&mins=<子类>)','method':'GET'}
+            '书籍的分类详情(子类为可选参数))':{'url':'/api/v1/zssq/catalog/detail?gender=<>&major=<>&minor=<>&start=<>&limit=<>','method':'GET'}
         }
     })
 
@@ -86,16 +86,19 @@ def bookcatalog():
     return r.content
 
 # 分类详情
-# http://api.zhuishushenqi.com/book/by-categories?major={}&mins={}
+# http://api.zhuishushenqi.com/book/by-categories?gender={}&type=hot&major={}&minor={}&start={}&limit={}
 @app.route('/api/v1/zssq/catalog/detail')
 def bookcatalogdetail():
     try:
         major = request.args.get('major')
-        mins = request.args.get('mins')
-        if not mins:
-            r = requests.get('https://api.zhuishushenqi.com/book/by-categories?major={0}'.format(major),timeout = 2)
+        minor = request.args.get('minor')
+        gender = request.args.get('gender')
+        start = request.args.get('start')
+        limit = request.args.get('limit')
+        if not minor:
+            r = requests.get('https://api.zhuishushenqi.com/book/by-categories?gender={}&type=hot&major={}&minor=&start={}&limit={}'.format(gender,major,start,limit),timeout = 2)
         else:
-            r = requests.get('https://api.zhuishushenqi.com/book/by-categories?major={0}&mins={1}'.format(major,mins),timeout = 2)
+            r = requests.get('https://api.zhuishushenqi.com/book/by-categories?gender={}&type=hot&major={}&minor={}&start={}&limit={}'.format(gender,major,minor,start,limit),timeout = 2)
         return r.content
     except:
         return jsonify({'ok':'false'})
