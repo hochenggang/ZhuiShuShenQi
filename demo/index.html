@@ -174,7 +174,7 @@
                 <div v-if="show.renderBook" id="renderBook">
                     <div ref="readArea" id="BookReadArea">
                         <div v-if="ajax.bookContent[ajax.nowAtBookSource[ajax.nowAtBookId]]" id="readArea">
-                            <pre v-if="ajax.nowAtBookChapterText">{{ ajax.nowAtBookChapterText.chapter.cpContent || ajax.nowAtBookChapterText.chapter.body }}</pre>
+                            <pre v-if="ajax.nowAtBookChapterText" @dblclick="fullScreen">{{ ajax.nowAtBookChapterText.chapter.cpContent || ajax.nowAtBookChapterText.chapter.body }}</pre>
                         </div>
 
                         <div v-if="show.BookSource" id="BookSource">
@@ -192,7 +192,7 @@
                     </div>
                     <div id="BookControl">
                         <ul>
-                            <li v-on:click="BookControl" func="Bcus">个性化</li>
+                            <li v-on:click="BookControl" func="Bfull">全屏</li>
                             <li v-on:click="BookControl" func="Bcata">目录</li>
                             <li v-on:click="BookControl" func="Bbefore">上一章</li>
                             <li v-on:click="BookControl" func="Bnext">下一章</li>
