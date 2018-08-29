@@ -172,15 +172,17 @@
 
                 </div>
                 <div v-if="show.renderBook" id="renderBook">
-                    <div id="BookReadArea">
-                        <div id="readArea"></div>
+                    <div ref="readArea" id="BookReadArea">
+                        <div v-if="ajax.bookContent[ajax.nowAtBookSource[ajax.nowAtBookId]]" id="readArea">
+                            <pre v-if="ajax.nowAtBookChapterText">{{ ajax.nowAtBookChapterText.chapter.cpContent || ajax.nowAtBookChapterText.chapter.body }}</pre>
+                        </div>
 
                         <div v-if="show.BookSource" id="BookSource">
                             <p class="BookSourceTitle">选择书源</p>      
                             <ul id="BookSourceBox" >
                                 <li class="BookSourceItem" v-for="source in ajax.bookSource[ajax.nowAtBookId]">
-                                    <span class="BookSourceItemName" v-bind:sourceID="source._id">{{ source.name }}</span>
-                                    <span class="BookSourceItemLast" >{{ source.lastChapter }}</span>
+                                    <p class="BookSourceItemName" v-on:click="loadCatalog" v-bind:sourceID="source._id">{{ source.name }}</p>
+                                    <p class="BookSourceItemLast" >{{ source.lastChapter }}</p>
                                 </li>
                             </ul>
                         </div>
@@ -200,6 +202,10 @@
                     
                 </div>
             </div>
+        </div>
+
+        <div v-if="show.firstCover" id="firstCover">
+            <p>{{ ajax.notice }}</p>
         </div>
     </div>
 
