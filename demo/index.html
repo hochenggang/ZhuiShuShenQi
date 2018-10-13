@@ -5,212 +5,268 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Book</title>
-    <link rel="stylesheet" href="style.css">
+    <title>追书</title>
+    <link rel="stylesheet" href="./style/style.css">
 </head>
 
 <body>
     <div id="app">
-        <div id="index" v-if="show.index">
-            <div id="header">
-                <div id="headerLogo">
-                    <p id="logoText">Book</p>
-                </div>
-                <div id="headerFunc">
-                    <div id="searchInputBox">
-                        <img v-if="show.searchIcon" v-on:click="show_searchInput" id="SearchIcon" src="data:image/svg+xml;base64,CjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDEwMDAgMTAwMCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAwMCAxMDAwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPG1ldGFkYXRhPiDnn6Lph4/lm77moIfkuIvovb0gOiBodHRwOi8vd3d3LnNmb250LmNuLyA8L21ldGFkYXRhPjxnPjxwYXRoIGQ9Ik0xMjksMTI3LjVjMTU4LjctMTU2LjgsNDE1LjktMTU2LjgsNTc0LjYsMEM4NTAsMjcyLjMsODYxLjIsNTAwLDczNy4yLDY1Ny40bDY0LjksNjQuMWMxMC42LTMuNiwyMi0yLDI5LjQsNS40bDE1MS4yLDE0OS40YzExLjEsMTEsOS40LDMwLjUtMy44LDQzLjZMOTE5LDk3OWMtMTMuMiwxMy4xLTMzLDE0LjctNDQuMSwzLjdMNzIzLjcsODMzLjRjLTcuNC03LjQtOS4xLTE4LjYtNS40LTI5LjFsLTY2LjctNjUuOEM0OTIuOSw4NTAuMiwyNzEuMyw4MzUuOCwxMjksNjk1LjJDLTI5LjcsNTM4LjQtMjkuNywyODQuMywxMjksMTI3LjVMMTI5LDEyNy41eiBNMjEyLjgsNjEyLjRjMTEyLjQsMTExLDI5NC42LDExMSw0MDcsMGMxMTIuNC0xMTEsMTEyLjQtMjkxLjEsMC00MDIuMWMtMTEyLjQtMTExLTI5NC42LTExMS00MDcsMEMxMDAuNCwzMjEuMywxMDAuNCw1MDEuNCwyMTIuOCw2MTIuNEwyMTIuOCw2MTIuNHogTTU4OS44LDIzOS44YzkuOSw5LjgsOS45LDI1LjcsMCwzNS41Yy05LjksOS44LTI2LDkuOC0zNS45LDBsMCwwYy03Ni4yLTc1LTE5OS4yLTc1LTI3NS4zLDBjLTkuOSw5LjgtMjYsOS44LTM1LjksMGMtOS45LTkuOC05LjktMjUuNywwLTM1LjVDMzM4LjYsMTQ1LjIsNDkzLjksMTQ1LjIsNTg5LjgsMjM5LjhMNTg5LjgsMjM5Ljh6IiBzdHlsZT0iZmlsbDojRkZGRkZGIj48L3BhdGg+PC9nPjwvc3ZnPiAg">
-                        <input v-if="show.searchInput" v-on:keyup.13="submitSearchInput" ref="searchInput" type="text" id="searchInput" placeholder="书名或作者">
-                    </div>
-                    <div id="headerMore"></div>
-                </div>
-            </div>
-
-            <ul id="swich">
-                <li v-if="show.swichMybook" v-on:click="show_indexMybook" class="swichListFunc" data-swich="mybook">书架
-                    <div v-if="show.activeMybook" class="swichSymble"></div>
-                </li>
-                <li v-if="show.swichFind" v-on:click="show_indexFind" class="swichListFunc" data-swich="find">发现
-                    <div v-if="show.activeFind" class="swichSymble"></div>
-                </li>
-            </ul>
-
-            <div id="body">
-
-                <div id="myBook">
-                    <div v-if="show.nobook" id="noBook">
-                        <img v-on:click="show_indexFind" id="bodyNoBookIcon" src="data:image/svg+xml;base64,CjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDEwMDAgMTAwMCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAwMCAxMDAwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPG1ldGFkYXRhPiDnn6Lph4/lm77moIfkuIvovb0gOiBodHRwOi8vd3d3LnNmb250LmNuLyA8L21ldGFkYXRhPjxnPjxwYXRoIGQ9Ik0xMCw0MTEuMWg5ODB2MTQ2LjlIMTBWNDExLjF6IiBzdHlsZT0iZmlsbDojQ0MwMDAwIj48L3BhdGg+PHBhdGggZD0iTTQyNi42LDEwaDE0Ni45djk4MEg0MjYuNlYxMEw0MjYuNiwxMHoiIHN0eWxlPSJmaWxsOiNDQzAwMDAiPjwvcGF0aD48L2c+PC9zdmc+ICA=">
-                        <p v-on:click="show_indexFind">添加书籍</p>
-                    </div>
-                    <ul v-if="show.myBookList" id="myBookList"></ul>
-                </div>
-
-                <div v-if="show.find" id="find">
-                    <ul id="findList">
-                        <li v-on:click="renderCatalog" class="findListItem" data-func="rank">排行榜</li>
-                        <li v-on:click="renderCatalog" class="findListItem" data-func="sort">分类</li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-
-        <div id="ajax" v-if="show.ajax">
-            <div id="header">
-                <div id="headerLogo">
-                    <p id="logoText">
-                        <svg version="1.1" v-on:click="show_indexFind" id="logoReturn" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                            x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 16 16"
-                            xml:space="preserve" fill="#000000"> <path d="M 43.953,42.00c-2.472-6.987-9.12-12.00-16.953-12.00l0.00,6.00 c0.00,1.107-0.609,2.121-1.584,2.646 c-0.975,0.522-2.16,0.465-3.078-0.15l-18.00-12.00C 3.501,25.938, 3.00,25.002, 3.00,24.00s 0.501-1.938, 1.335-2.496l 18.00-12.00c 0.921-0.612, 2.103-0.672, 3.078-0.15 S 27.00,10.893, 27.00,12.00l0.00,6.00 c 9.939,0.00, 18.00,8.061, 18.00,18.00C 45.00,38.106, 44.619,40.122, 43.953,42.00z"></path></svg>
-                    </p>
-                    <p id="titleText">{{ ajax.titleText }}</p>
-                </div>
-
-            </div>
-
-            <div id="render">
-
-                <div v-if="show.renderCatalog" id="renderCatalog">
-                    <div v-if="ajax.catalogData.epub">
-                        <div v-if="ajax.catalogData.male">
-                            <p class="rankTitle">男生</p>
-                            <ul class="renderCatalogUl">
-                                <li v-for="book in ajax.catalogData.male" class="renderCatalogLi">
-                                    <p v-bind:data-id="book._id" v-on:click="renderBookList" type="rank">{{ book.shortTitle
-                                        }}
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div v-if="ajax.catalogData.female">
-                            <p class="rankTitle">女生</p>
-                            <ul class="renderCatalogUl">
-                                <li v-for="book in ajax.catalogData.female" class="renderCatalogLi">
-                                    <p v-bind:data-id="book._id" v-on:click="renderBookList" type="rank">{{ book.shortTitle
-                                        }}
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div v-if="ajax.catalogData.epub">
-                            <p class="rankTitle">出版物</p>
-                            <ul class="renderCatalogUl">
-                                <li v-for="book in ajax.catalogData.epub" class="renderCatalogLi">
-                                    <p v-bind:data-id="book._id" v-on:click="renderBookList" type="rank">{{ book.shortTitle
-                                        }}
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div v-if="ajax.catalogData.press">
-                        <div v-if="ajax.catalogData.male">
-                            <p class="rankTitle">男生</p>
-                            <p class="rankTitle2">一级分类</p>
-                            <ul class="renderCatalogUl">
-                                <li v-for="item in ajax.catalogData.male" class="renderCatalogLi">
-                                    <span v-bind:data-Major="item.major" v-on:click="renderBookList" type="sort" gender="male">{{
-                                        item.major }}</span>
-                                </li>
-                            </ul>
-                            <p class="rankTitle2">二级分类</p>
-                            <div>
-                                <ul v-for="item in ajax.catalogData.male" class="renderCatalogUl">
-                                    <li class="renderCatalogLi" v-on:click="renderBookList" type="sort" gender="male" v-for="Minor in item.mins" v-if="Minor"
-                                        v-bind:data-Major="item.major" v-bind:data-Minor="Minor">{{
-                                        Minor }}</li>
-                                </ul>
-                            </div>
-
-                            <p class="rankTitle">女生</p>
-                            <p class="rankTitle2">一级分类</p>
-                            <ul class="renderCatalogUl">
-                                <li v-for="item in ajax.catalogData.female" class="renderCatalogLi">
-                                    <span v-bind:data-Major="item.major" v-on:click="renderBookList" type="sort" gender="female">{{
-                                        item.major }}</span>
-                                </li>
-                            </ul>
-                            <p class="rankTitle2">二级分类</p>
-                            <div>
-                                <ul v-for="item in ajax.catalogData.female" class="renderCatalogUl">
-                                    <li class="renderCatalogLi" v-on:click="renderBookList" type="sort" gender="female" v-for="Minor in item.mins" v-if="Minor"
-                                        v-bind:data-Major="item.major" v-bind:data-Minor="Minor">{{
-                                        Minor }}</li>
-                                </ul>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div v-if="show.renderList" id="renderList">
-                    <ul v-if="ajax.bookListData.ranking" class="ListUl">
-                        <li v-for="book in ajax.bookListData.ranking.books" class="ListLi">
-                            <div class="ListItemPic"><img v-bind:src="'https://statics.zhuishushenqi.com' + book.cover"></div>
-                            <div class="ListItemText">
-                                <p class="LItitle" v-on:click="loadBook" v-bind:bookId="book._id">{{ book.title }}</p>
-                                <span class="LIauthor">{{ book.author }}</span>
-                                <p class="LIshortIntro">{{ book.shortIntro }}</p>
-                                <span class="LIretentionRatio">留存率 {{ book.retentionRatio }}</span>
-                                <span class="LIlatelyFollower">追书人数 {{ book.latelyFollower }}</span>
-                            </div>
-                        </li>
-                    </ul>
-
-                    <ul v-if="ajax.bookListData.books" class="ListUl">
-                        <li v-for="book in ajax.bookListData.books" class="ListLi">
-                            <div class="ListItemPic"><img v-bind:src="'https://statics.zhuishushenqi.com' + book.cover"></div>
-                            <div class="ListItemText">
-                                <p class="LItitle" v-on:click="loadBook" v-bind:bookId="book._id">{{ book.title }}</p>
-                                <span class="LIauthor">{{ book.author }}</span>
-                                <p class="LIshortIntro">{{ book.shortIntro }}</p>
-                                <span class="LIretentionRatio">留存率 {{ book.retentionRatio }}</span>
-                                <span class="LIlatelyFollower">追书人数 {{ book.latelyFollower }}</span>
-                            </div>
-                        </li>
-                    </ul>
-
-                </div>
-                <div v-if="show.renderBook" id="renderBook">
-                    <div ref="readArea" id="BookReadArea">
-                        <div v-if="ajax.bookContent[ajax.nowAtBookSource[ajax.nowAtBookId]]" id="readArea">
-                            <pre v-if="ajax.nowAtBookChapterText" @dblclick="fullScreen">{{ ajax.nowAtBookChapterText.chapter.cpContent || ajax.nowAtBookChapterText.chapter.body }}</pre>
-                        </div>
-
-                        <div v-if="show.BookSource" id="BookSource">
-                            <p class="BookSourceTitle">选择书源</p>      
-                            <ul id="BookSourceBox" >
-                                <li class="BookSourceItem" v-for="source in ajax.bookSource[ajax.nowAtBookId]">
-                                    <p class="BookSourceItemName" v-on:click="loadCatalog" v-bind:sourceID="source._id">{{ source.name }}</p>
-                                    <p class="BookSourceItemLast" >{{ source.lastChapter }}</p>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div id="BookCatalog"></div>
-                        <div id="BookCustomize"></div>
-                    </div>
-                    <div id="BookControl">
-                        <ul>
-                            <li v-on:click="BookControl" func="Bfull">{{ ajax.fullScreenText }}</li>
-                            <li v-on:click="BookControl" func="Bcata">目录</li>
-                            <li v-on:click="BookControl" func="Bbefore">上一章</li>
-                            <li v-on:click="BookControl" func="Bnext">下一章</li>
-                        </ul>
-                    </div>
-
-                    
-                </div>
-            </div>
-        </div>
-
-        <div v-if="show.firstCover" id="firstCover">
-            <p>{{ ajax.notice }}</p>
-        </div>
+        <router-view></router-view>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script src="index.js"></script>
+    <!-- 我的书架 -->
+    <template id="template-mybook">
+        <div id="mybook">
+            <search-head></search-head>
+            <func-swich active="mybook"></func-swich>
+        </div>
+    </template>
+
+    <!-- 发现页 -->
+    <template id="template-finding">
+        <div id="finding">
+            <search-head></search-head>
+            <func-swich active="finding"></func-swich>
+            <ul id="finding-items">
+                <li class="finding-item">
+                    <router-link to="/sort">分类</router-link>
+                </li>
+                <li class="finding-item">
+                    <router-link to="/ranking">排行</router-link>
+                </li>
+            </ul>
+        </div>
+    </template>
+
+    <!-- 分类页 -->
+    <template id="template-sort">
+        <div id="sort">
+            <back-head msg="分类"></back-head>
+            <div id="sort-area">
+                <p v-if="Sort_data" class="sort-title">男生</p>
+                <ul class="sort-items">
+                    <li class="sort-item" v-for="male_item in Sort_data['male']">
+                        <router-link :to="{ path:'/book-list', query: { action:'sort-major',  major: male_item['name'],gender:'male', msg:male_item['name']}}">
+                            <span class="sort-item-name">{{male_item['name']}}</span>
+                            <span class="sort-item-count">{{male_item['bookCount']}}</span>
+                        </router-link>
+                    </li>
+                </ul>
+                <p v-if="Sort_data" class="sort-title">女生</p>
+                <ul class="sort-items">
+                    <li class="sort-item" v-for="female_item in Sort_data['female']">
+                        <router-link :to="{ path:'/book-list', query: { action:'sort-major', major: female_item['name'],gender:'female', msg:female_item['name']}}">
+                            <span class="sort-item-name">{{female_item['name']}}</span>
+                            <span class="sort-item-count">{{female_item['bookCount']}}</span>
+                        </router-link>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </template>
+
+    <!-- 排行页 -->
+    <template id="template-ranking">
+        <div id="ranking">
+            <back-head msg="排行"></back-head>
+            <div id="sort-area">
+                <p v-if="Ranking_data" class="sort-title">男生</p>
+                <ul class="sort-items">
+                    <li class="sort-item" v-for="male_item in Ranking_data['male']">
+                        <router-link :to="{ path:'/book-list', query: { action:'ranking', _id:male_item['_id'], msg:male_item['shortTitle']}}">
+                            <span class="sort-item-name">{{male_item['title']}}</span>
+                        </router-link>
+                    </li>
+                </ul>
+                <p v-if="Ranking_data" class="sort-title">女生</p>
+                <ul class="sort-items">
+                    <li class="sort-item" v-for="male_item in Ranking_data['female']">
+                        <router-link :to="{ path:'/book-list', query: { action:'ranking', _id:male_item['_id'], msg:male_item['shortTitle']}}">
+                            <span class="sort-item-name">{{male_item['title']}}</span>
+                        </router-link>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </template>
+
+    <!-- 搜索结果页 -->
+    <template id="template-search">
+        <div id="search">
+            <back-head :msg="key_word"></back-head>
+            <div id="list-area">
+                <div v-if="Search_data">
+                    <ul id="book-items">
+                        <li class="book-item" v-for="book in Search_data['books']">
+                            <router-link :to="{ path:'/book', query: { book_id: book['_id']}}">
+                                <span class="book-title">
+                                    {{book['title']}}
+                                </span>
+                            </router-link>
+                            <p class="book-author">{{book['author']}}</p>
+                            <p class="book-brief">
+                                {{book['shortIntro']}}
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </template>
+    
+    <!-- 书籍列表，包括分类和排行 -->
+    <template id="template-book-list">
+        <div id="list">
+            <back-head :msg="msg"></back-head>
+            <div id="list-area">
+                <div v-if="Major_data">
+                    <ul id="book-items">
+                        <li class="book-item" v-for="book in Major_data['books']">
+                            <router-link :to="{ path:'/book', query: { book_id: book['_id']}}">
+                                <span class="book-title">
+                                    {{book['title']}}
+                                </span>
+                            </router-link>
+                            <p class="book-author">{{book['author']}}</p>
+                            <p class="book-brief">
+                                {{book['shortIntro']}}
+                            </p>
+                        </li>
+                        <li v-if="Major_data" id="next_button">
+                            <p @click="load_next_page">下一页</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div v-if="Ranking_data">
+                    <ul>
+                        <li class="book-item" v-for="book in Ranking_data['ranking']['books']">
+                            <router-link :to="{ path:'/book', query: { book_id: book['_id']}}">
+                                <span class="book-title">
+                                    {{book['title']}}
+                                </span>
+                            </router-link>
+                            <p class="book-author">{{book['author']}}</p>
+                            <p class="book-brief">
+                                {{book['shortIntro']}}
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </template>
+
+
+
+    <!-- 附带搜索的头部 -->
+    <template id="template-search-header">
+        <div id="search-header">
+            <ul id="search-header-items">
+                <li class="search-header-item">
+                    <span id="search-header-logo">追书</span>
+                </li>
+                <li class="search-header-item">
+                    <span id="search-header-input-box">
+                        <span id="search-header-input-icon">
+                            <img v-if="!show_search_input" v-on:click="swich_icon_input" src="data:image/svg+xml;base64,CjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDEwMDAgMTAwMCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAwMCAxMDAwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPG1ldGFkYXRhPiDnn6Lph4/lm77moIfkuIvovb0gOiBodHRwOi8vd3d3LnNmb250LmNuLyA8L21ldGFkYXRhPjxnPjxwYXRoIGQ9Ik05NzEuOSw5NzEuOWMtMjQuMSwyNC4xLTYzLjIsMjQuMS04Ny4zLDBMNjk1LjEsNzgyLjVDNjIzLjYsODM1LjksNTM1LjIsODY4LDQzOSw4NjhDMjAyLjEsODY4LDEwLDY3NS45LDEwLDQzOUMxMCwyMDIuMSwyMDIuMSwxMCw0MzksMTBjMjM2LjksMCw0MjksMTkyLjEsNDI5LDQyOWMwLDk2LjEtMzIsMTg0LjYtODUuNSwyNTYuMmwxODkuNCwxODkuNEM5OTYsOTA4LjcsOTk2LDk0Ny44LDk3MS45LDk3MS45eiBNNDM5LDEzMi42Yy0xNjkuMiwwLTMwNi40LDEzNy4yLTMwNi40LDMwNi40YzAsMTY5LjIsMTM3LjIsMzA2LjQsMzA2LjQsMzA2LjRTNzQ1LjQsNjA4LjIsNzQ1LjQsNDM5Qzc0NS40LDI2OS44LDYwOC4yLDEzMi42LDQzOSwxMzIuNnoiIHN0eWxlPSJmaWxsOiNGRkZGRkYiPjwvcGF0aD48L2c+PC9zdmc+ICA=">
+                        </span>
+                        <input v-on:blur="swich_icon_input" v-on:keyup.13="redirect_to_search" v-if="show_search_input"
+                            type="text" id="search-header-input">
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </template>
+
+    <!-- 功能页切换器 -->
+    <template id="template-func-swich">
+        <div id="func-swich">
+            <ul id="func-swich-items">
+                <li id="func-swich-mybook" class="func-swich-item">
+                    <router-link to="/">书架</router-link>
+                </li>
+                <li id="func-swich-finding" class="func-swich-item">
+                    <router-link to="/finding">发现</router-link>
+                </li>
+            </ul>
+        </div>
+    </template>
+
+    <!-- 附带返回的头部 -->
+    <template id="template-back-header">
+        <div id="back-header">
+            <div id="back-header-items">
+                <p id="back-header-icon">
+                    <img v-on:click="go_back" src="data:image/svg+xml;base64,CjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDEwMDAgMTAwMCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAwMCAxMDAwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPG1ldGFkYXRhPiDnn6Lph4/lm77moIfkuIvovb0gOiBodHRwOi8vd3d3LnNmb250LmNuLyA8L21ldGFkYXRhPjxnPjxwYXRoIGQ9Ik0zMzQuMiwxNTAuNEwyNy45LDQ1Ni43QzQsNDgwLjYsNCw1MTkuNCwyNy45LDU0My4zbDMwNi4zLDMwNi4zYzIzLjksMjMuOSw2Mi43LDIzLjksODYuNiwwYzIzLjktMjMuOSwyMy45LTYyLjcsMC04Ni42TDIxOS4xLDU2MS4zaDcwOS42YzMzLjgsMCw2MS4zLTI3LjQsNjEuMy02MS4zYzAtMzMuOC0yNy40LTYxLjMtNjEuMy02MS4zSDIxOS4xbDIwMS43LTIwMS43YzEyLTEyLDE3LjktMjcuNiwxNy45LTQzLjNjMC0xNS43LTYtMzEuNC0xNy45LTQzLjNDMzk2LjksMTI2LjUsMzU4LjEsMTI2LjUsMzM0LjIsMTUwLjR6IiBzdHlsZT0iZmlsbDojRkZGRkZGIj48L3BhdGg+PC9nPjwvc3ZnPiAg">
+                    <span class="back-header-text" v-if="msg">{{msg}}</span>
+                </p>
+            </div>         
+        </div>
+    </template>
+
+    <!-- 书籍页 -->
+    <template id="template-book">
+        <div id="book">
+            <back-head :msg="msg"></back-head>
+            <div id="read-background"></div>
+            <div id="book-area">
+                <div v-if="!book_source_id" id="book-source-selector">
+                    <ul id="book-source-items">
+                        <li class="book-source-item" v-for="source in book_source_ajax">
+                            <div class="book-source-item-content">
+                                <p >来自：{{source['source']}}</p>
+                                <p>最新：{{source['lastChapter']}}</p>
+                            </div>
+                            <div @click="ensure_book_source" v-bind:source_id="source['_id']"  class="book-source-select-button">选定</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div v-if="book_source_id && !chapters" id="book-source-selector">
+                    <p>正在加载章节列表...</p>
+                </div>
+
+                <div v-if="now_chapter_content['ok'] && !show_chapter_list" id="book-read-area">
+                    <p class="book-text" v-if="is_vip" v-html="now_chapter_content['chapter']['cpContent']"></p>
+                    <p class="book-text" v-if="!is_vip" v-html="now_chapter_content['chapter']['body']"></p>
+                </div>
+
+                <div v-if="show_chapter_list" id="book-chapter-selector">
+                    <ul id="book-chapter-items">
+                        <li class="book-chapter-item" v-for="(chapter,index) in chapters['chapters']">
+                            <p @click="set_index" v-bind:chapter_index="index">{{chapter['title']}}</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div v-if="now_chapter_content['ok'] && show_control_bar" id="book-read-cotrol">
+                    <ul id="book-read-cotrol-bar">
+                        <li @click="show_chapter_list_func" class="book-read-cotrol-bar-item">
+                            {{show_chapter_list?'正文':'目录'}}
+                        </li>
+                        <li class="book-read-cotrol-bar-item">
+                            设置
+                        </li>
+                        <li class="book-read-cotrol-bar-item">
+                            收藏
+                        </li>
+                        <li @click="add_index" class="book-read-cotrol-bar-item">
+                            下一章
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </template>
+
+    <script src="https://s2.pstatp.com/cdn/expire-1-M/vue/2.5.6/vue.js"></script>
+    <!-- <script src="https://s2.pstatp.com/cdn/expire-1-M/vue/2.5.6/vue.min.js"></script> -->
+    <script src="https://s2.pstatp.com/cdn/expire-1-M/vue-router/3.0.1/vue-router.min.js"></script>
+    <script src="./script/index.js"></script>
 </body>
 
 </html>
