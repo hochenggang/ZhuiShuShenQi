@@ -64,7 +64,10 @@ const MyBook = {
         'search-head': SearchHead,
         'func-swich': FuncSwich
     },
-    template: `#template-mybook`
+    template: `#template-mybook`,
+    beforeMount: function () {
+
+    }
 }
 
 // 发现
@@ -128,16 +131,16 @@ const Search = {
     template: '#template-search',
     data: function () {
         return {
-            Search_data:'',
-            key_word:'',
+            Search_data: '',
+            key_word: '',
         }
     },
     beforeMount: function () {
         this.key_word = this.$route.query.key_word;
-        console.log('开始搜索关键词：'+this.key_word);
+        console.log('开始搜索关键词：' + this.key_word);
         fetch(PROX_GATE, {
             method: "POST",
-            body: JSON.stringify({ 'url': 'http://api.zhuishushenqi.com/book/fuzzy-search?query='+this.key_word }),
+            body: JSON.stringify({ 'url': 'http://api.zhuishushenqi.com/book/fuzzy-search?query=' + this.key_word }),
         })
             .then(res => res.json())
             .then(res => {
@@ -232,6 +235,7 @@ const Book = {
             chapter_status: '',
             show_chapter_list: false,
             show_control_bar: true,
+            isFullscreen: false,
         }
     },
     watch: {
@@ -314,15 +318,17 @@ const Book = {
                         document.querySelector('#book-area').scrollTop = 0;
                     } else {
                         this.chapter_status = false;
-                        console.log('读取章节内容出错，具体原因为：'+this.now_chapter_content.message);
+                        console.log('读取章节内容出错，具体原因为：' + this.now_chapter_content.message);
                         alert('当前源好像坏了，\n建议换源再试。');
                     }
                 })
+            // 每一次加载章节后，保存历史到localstorage
+            localStorage[this.book_id] = { 'book_source_id': this.book_source_id, 'now_index': this.now_index }
         },
         show_chapter_list_func: function () {
             console.log('切换目录/正文');
             this.show_chapter_list = !this.show_chapter_list;
-            if (this.show_chapter_list){
+            if (this.show_chapter_list) {
                 document.querySelector('#book-area').scrollTop = 0;
             }
         },
@@ -334,8 +340,79 @@ const Book = {
                 this.show_chapter_list = !this.show_chapter_list;
             }
         },
-        add_index:function(){
-            this.now_index += 1;
+        add_index: function () {
+            // 有些时候会被当做字符串
+            this.now_index = parseFloat(this.now_index) + 1;
+        },
+        full_screen: function () {
+            console.log('全屏操作');
+            let isFullscreen = document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen;
+            var el = document.querySelector('#app');
+            if (!isFullscreen) {//进入全屏,多重短路表达式
+                this.isFullscreen = true;
+                el.style.top = '0px';
+                el.style.bottom = '0px';
+                el.style.zIndex = '2';
+                fullScreen();
+            } else {	//退出全屏,三目运算符
+                this.isFullscreen = false;
+                el.style.top = '50px';
+                el.style.bottom = '50px';
+                el.style.zIndex = '1';
+                fullExit();
+            }
+
+            //全屏  
+            function fullScreen() {
+                var element = document.documentElement; //若要全屏页面中div，var element= document.getElementById("divID");  
+                //IE 10及以下ActiveXObject  
+                if (window.ActiveXObject) {
+                    var WsShell = new ActiveXObject('WScript.Shell')
+                    WsShell.SendKeys('{F11}');
+                }
+                //HTML W3C 提议  
+                else if (element.requestFullScreen) {
+                    element.requestFullScreen();
+                }
+                //IE11  
+                else if (element.msRequestFullscreen) {
+                    element.msRequestFullscreen();
+                }
+                // Webkit (works in Safari5.1 and Chrome 15)  
+                else if (element.webkitRequestFullScreen) {
+                    element.webkitRequestFullScreen();
+                }
+                // Firefox (works in nightly)  
+                else if (element.mozRequestFullScreen) {
+                    element.mozRequestFullScreen();
+                }
+            }
+
+            //退出全屏  
+            function fullExit() {
+                var element = document.documentElement;//若要全屏页面中div，var element= document.getElementById("divID");   
+                //IE ActiveXObject  
+                if (window.ActiveXObject) {
+                    var WsShell = new ActiveXObject('WScript.Shell')
+                    WsShell.SendKeys('{F11}');
+                }
+                //HTML5 W3C 提议  
+                else if (element.requestFullScreen) {
+                    document.exitFullscreen();
+                }
+                //IE 11  
+                else if (element.msRequestFullscreen) {
+                    document.msExitFullscreen();
+                }
+                // Webkit (works in Safari5.1 and Chrome 15)  
+                else if (element.webkitRequestFullScreen) {
+                    document.webkitCancelFullScreen();
+                }
+                // Firefox (works in nightly)  
+                else if (element.mozRequestFullScreen) {
+                    document.mozCancelFullScreen();
+                }
+            }
         }
     }
 }

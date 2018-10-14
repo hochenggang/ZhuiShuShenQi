@@ -230,8 +230,8 @@
                 </div>
 
                 <div v-if="now_chapter_content['ok'] && !show_chapter_list" id="book-read-area">
-                    <p class="book-text" v-if="is_vip" v-html="now_chapter_content['chapter']['cpContent']"></p>
-                    <p class="book-text" v-if="!is_vip" v-html="now_chapter_content['chapter']['body']"></p>
+                    <p  class="book-text" v-if="is_vip" v-html="now_chapter_content['chapter']['cpContent']"></p>
+                    <p  class="book-text" v-if="!is_vip" v-html="now_chapter_content['chapter']['body']"></p>
                 </div>
 
                 <div v-if="show_chapter_list" id="book-chapter-selector">
@@ -247,8 +247,8 @@
                         <li @click="show_chapter_list_func" class="book-read-cotrol-bar-item">
                             {{show_chapter_list?'正文':'目录'}}
                         </li>
-                        <li class="book-read-cotrol-bar-item">
-                            设置
+                        <li @click="full_screen" class="book-read-cotrol-bar-item">
+                            {{isFullscreen?'退出全屏':'全屏'}}
                         </li>
                         <li class="book-read-cotrol-bar-item">
                             收藏
@@ -262,7 +262,6 @@
 
         </div>
     </template>
-
     <script src="https://s2.pstatp.com/cdn/expire-1-M/vue/2.5.6/vue.js"></script>
     <!-- <script src="https://s2.pstatp.com/cdn/expire-1-M/vue/2.5.6/vue.min.js"></script> -->
     <script src="https://s2.pstatp.com/cdn/expire-1-M/vue-router/3.0.1/vue-router.min.js"></script>
