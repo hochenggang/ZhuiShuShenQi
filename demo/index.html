@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>追书</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="./style/style.css">
 </head>
 
@@ -19,6 +20,29 @@
         <div id="mybook">
             <search-head></search-head>
             <func-swich active="mybook"></func-swich>
+            <ul id="list" v-if="Book_data">
+                <li class="book-item" v-for="book in Book_data">
+                    <div class="book-info">
+                        <div class="book-cover">
+                            <img v-bind:src="'http://statics.zhuishushenqi.com'+book.cover" alt="">
+                        </div>
+                        <ul class="book-info-text">
+                            <li class="book-info-item book-title">
+                                <router-link :to="{ path:'/book', query: { book_id: book['_id']}}">
+                                <p class="book-title">{{book.title}}</p> 
+                                </router-link>
+                                
+                            </li>
+                            <li class="book-info-item book-author">
+                                {{book.author}}
+                            </li>
+                            <li class="book-info-item">
+                                {{book.lastChapter}}
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
         </div>
     </template>
 
@@ -114,7 +138,7 @@
             </div>
         </div>
     </template>
-    
+
     <!-- 书籍列表，包括分类和排行 -->
     <template id="template-book-list">
         <div id="list">
@@ -166,7 +190,7 @@
         <div id="search-header">
             <ul id="search-header-items">
                 <li class="search-header-item">
-                    <span id="search-header-logo">追书</span>
+                    <a id="search-header-logo" href="/">追书</a>
                 </li>
                 <li class="search-header-item">
                     <span id="search-header-input-box">
@@ -203,7 +227,7 @@
                     <img v-on:click="go_back" src="data:image/svg+xml;base64,CjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDEwMDAgMTAwMCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAwMCAxMDAwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPG1ldGFkYXRhPiDnn6Lph4/lm77moIfkuIvovb0gOiBodHRwOi8vd3d3LnNmb250LmNuLyA8L21ldGFkYXRhPjxnPjxwYXRoIGQ9Ik0zMzQuMiwxNTAuNEwyNy45LDQ1Ni43QzQsNDgwLjYsNCw1MTkuNCwyNy45LDU0My4zbDMwNi4zLDMwNi4zYzIzLjksMjMuOSw2Mi43LDIzLjksODYuNiwwYzIzLjktMjMuOSwyMy45LTYyLjcsMC04Ni42TDIxOS4xLDU2MS4zaDcwOS42YzMzLjgsMCw2MS4zLTI3LjQsNjEuMy02MS4zYzAtMzMuOC0yNy40LTYxLjMtNjEuMy02MS4zSDIxOS4xbDIwMS43LTIwMS43YzEyLTEyLDE3LjktMjcuNiwxNy45LTQzLjNjMC0xNS43LTYtMzEuNC0xNy45LTQzLjNDMzk2LjksMTI2LjUsMzU4LjEsMTI2LjUsMzM0LjIsMTUwLjR6IiBzdHlsZT0iZmlsbDojRkZGRkZGIj48L3BhdGg+PC9nPjwvc3ZnPiAg">
                     <span class="back-header-text" v-if="msg">{{msg}}</span>
                 </p>
-            </div>         
+            </div>
         </div>
     </template>
 
@@ -217,10 +241,10 @@
                     <ul id="book-source-items">
                         <li class="book-source-item" v-for="source in book_source_ajax">
                             <div class="book-source-item-content">
-                                <p >来自：{{source['source']}}</p>
+                                <p>来自：{{source['source']}}</p>
                                 <p>最新：{{source['lastChapter']}}</p>
                             </div>
-                            <div @click="ensure_book_source" v-bind:source_id="source['_id']"  class="book-source-select-button">选定</div>
+                            <div @click="ensure_book_source" v-bind:source_id="source['_id']" class="book-source-select-button">选定</div>
                         </li>
                     </ul>
                 </div>
@@ -230,8 +254,8 @@
                 </div>
 
                 <div v-if="now_chapter_content['ok'] && !show_chapter_list" id="book-read-area">
-                    <p  class="book-text" v-if="is_vip" v-html="now_chapter_content['chapter']['cpContent']"></p>
-                    <p  class="book-text" v-if="!is_vip" v-html="now_chapter_content['chapter']['body']"></p>
+                    <p class="book-text" v-if="is_vip" v-html="now_chapter_content['chapter']['cpContent']"></p>
+                    <p class="book-text" v-if="!is_vip" v-html="now_chapter_content['chapter']['body']"></p>
                 </div>
 
                 <div v-if="show_chapter_list" id="book-chapter-selector">
@@ -250,8 +274,8 @@
                         <li @click="full_screen" class="book-read-cotrol-bar-item">
                             {{isFullscreen?'退出全屏':'全屏'}}
                         </li>
-                        <li class="book-read-cotrol-bar-item">
-                            收藏
+                        <li @click="put_to_mybook" class="book-read-cotrol-bar-item">
+                            {{is_collecting?'已收藏':'收藏'}}
                         </li>
                         <li @click="add_index" class="book-read-cotrol-bar-item">
                             下一章

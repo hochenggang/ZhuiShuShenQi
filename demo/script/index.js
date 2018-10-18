@@ -65,8 +65,27 @@ const MyBook = {
         'func-swich': FuncSwich
     },
     template: `#template-mybook`,
+    data: function () {
+        return {
+            Book_data: [],
+        }
+    },
     beforeMount: function () {
-
+        let id_list = Object.keys(JSON.parse(localStorage.mybooks));
+        id_list.forEach(id => {
+            fetch(PROX_GATE, {
+                method: "POST",
+                body: JSON.stringify({
+                    'url': 'http://api.zhuishushenqi.com/book/'+id
+                }),
+            })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res);
+                this.Book_data.push(res);
+            })
+            
+        })
     }
 }
 
@@ -92,9 +111,11 @@ const Sort = {
     },
     beforeMount: function () {
         fetch(PROX_GATE, {
-            method: "POST",
-            body: JSON.stringify({ 'url': 'http://api.zhuishushenqi.com/cats/lv2/statistics' }),
-        })
+                method: "POST",
+                body: JSON.stringify({
+                    'url': 'http://api.zhuishushenqi.com/cats/lv2/statistics'
+                }),
+            })
             .then(res => res.json())
             .then(res => {
                 this.Sort_data = res
@@ -114,9 +135,11 @@ const Ranking = {
     },
     beforeMount: function () {
         fetch(PROX_GATE, {
-            method: "POST",
-            body: JSON.stringify({ 'url': 'http://api.zhuishushenqi.com/ranking/gender' }),
-        })
+                method: "POST",
+                body: JSON.stringify({
+                    'url': 'http://api.zhuishushenqi.com/ranking/gender'
+                }),
+            })
             .then(res => res.json())
             .then(res => {
                 this.Ranking_data = res
@@ -139,9 +162,11 @@ const Search = {
         this.key_word = this.$route.query.key_word;
         console.log('开始搜索关键词：' + this.key_word);
         fetch(PROX_GATE, {
-            method: "POST",
-            body: JSON.stringify({ 'url': 'http://api.zhuishushenqi.com/book/fuzzy-search?query=' + this.key_word }),
-        })
+                method: "POST",
+                body: JSON.stringify({
+                    'url': 'http://api.zhuishushenqi.com/book/fuzzy-search?query=' + this.key_word
+                }),
+            })
             .then(res => res.json())
             .then(res => {
                 this.Search_data = res
@@ -167,17 +192,18 @@ const BookList = {
     },
     beforeMount: function () {
         let action = this.$route.query.action;
-        console.log(action)
         // 加载分类书单
         if (action === 'sort-major') {
+
             this.gender = this.$route.query.gender;
             this.major = this.$route.query.major;
             this.get_major_sort();
             this.msg = this.$route.query.msg;
+            console.log('加载分类' + this.major)
         }
         // 加载排行书单
         else if (action === 'ranking') {
-            console.log('render ranking')
+            console.log('加载排行榜')
             this.ranking_id = this.$route.query._id;
             this.get_ranking();
             this.msg = this.$route.query.msg;
@@ -186,9 +212,11 @@ const BookList = {
     methods: {
         get_major_sort: function () {
             fetch(PROX_GATE, {
-                method: "POST",
-                body: JSON.stringify({ 'url': 'https://api.zhuishushenqi.com/book/by-categories?gender=' + this.gender + '&type=hot&major=' + this.major + '&minor=&start=' + this.major_start + '&limit=10' }),
-            })
+                    method: "POST",
+                    body: JSON.stringify({
+                        'url': 'https://api.zhuishushenqi.com/book/by-categories?gender=' + this.gender + '&type=hot&major=' + this.major + '&minor=&start=' + this.major_start + '&limit=10'
+                    }),
+                })
                 .then(res => res.json())
                 .then(res => {
                     this.Major_data = res
@@ -196,21 +224,22 @@ const BookList = {
         },
         get_ranking: function () {
             fetch(PROX_GATE, {
-                method: "POST",
-                body: JSON.stringify({ 'url': 'http://api.zhuishushenqi.com/ranking/' + this.ranking_id }),
-            })
+                    method: "POST",
+                    body: JSON.stringify({
+                        'url': 'http://api.zhuishushenqi.com/ranking/' + this.ranking_id
+                    }),
+                })
                 .then(res => res.json())
                 .then(res => {
                     this.Ranking_data = res
                 })
         },
         load_next_page: function () {
-            console.log('load more');
+            console.log('加载更多');
             this.major_start += 1;
             this.get_major_sort();
             // 数据刷新后返回顶部
             document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
         }
     }
 }
@@ -236,6 +265,7 @@ const Book = {
             show_chapter_list: false,
             show_control_bar: true,
             isFullscreen: false,
+            is_collecting: false,
         }
     },
     watch: {
@@ -251,25 +281,46 @@ const Book = {
         },
         now_index: function () {
             console.log('检测到索引变动')
-            this.load_chapter();
-        }
+            // 更新收藏状态
+            this.is_collecting = !!((JSON.parse(localStorage.mybooks))[this.book_id]);
+            // 如果已经缓存了章节，直接跳转，否则不执行
+            if (this.chapters) {
+                this.load_chapter();
+                if (this.is_collecting) {
+                    this.put_to_mybook();
+                }
+            }
+        },
     },
     beforeMount: function () {
         this.book_id = this.$route.query.book_id;
-        console.log('初始化阅读组件，书籍，id 为 ', this.book_id);
-        // 通过书籍 ID 获取书籍源
+        console.log('初始化阅读组件，书籍 id 为 ', this.book_id);
+        // 检查是否有收藏记录
+        if (!!((JSON.parse(localStorage.mybooks))[this.book_id])) {
+            console.log('读取记录');
+            let book_info = JSON.parse((JSON.parse(localStorage.mybooks))[this.book_id])
+            console.log(book_info);
+            this.book_id = book_info.book_id;
+            this.book_source_id = book_info.book_source_id;
+            this.now_index = book_info.now_index;
+        }
+        // 判断书源，返回选择器或者直接加载章节
         if (!this.book_source_id) {
             this.get_book_source();
             this.msg = '书源选择'
+        } else {
+            this.get_chapters();
         }
     },
     methods: {
         get_book_source: function () {
             console.log('正在获取书源');
             fetch(PROX_GATE, {
-                method: "POST",
-                body: JSON.stringify({ 'url': 'http://api.zhuishushenqi.com/atoc?view=summary&book=' + this.book_id }),
-            })
+                    method: "POST",
+                    body: JSON.stringify({
+                        'url': 'http://api.zhuishushenqi.com/atoc?view=summary&book=' + this.book_id
+                    }),
+                })
                 .then(res => res.json())
                 .then(res => {
                     this.book_source_ajax = res
@@ -286,9 +337,11 @@ const Book = {
         get_chapters: function () {
             console.log('正在获取书籍所有章节');
             fetch(PROX_GATE, {
-                method: "POST",
-                body: JSON.stringify({ 'url': 'https://api.zhuishushenqi.com/atoc/' + this.book_source_id + '?view=chapters' }),
-            })
+                    method: "POST",
+                    body: JSON.stringify({
+                        'url': 'https://api.zhuishushenqi.com/atoc/' + this.book_source_id + '?view=chapters'
+                    }),
+                })
                 .then(res => res.json())
                 .then(res => {
                     this.chapters = res
@@ -300,9 +353,11 @@ const Book = {
             this.chapter_title = this.chapters['chapters'][this.now_index]['title'];
             this.msg = this.chapter_title;
             fetch(PROX_GATE, {
-                method: "POST",
-                body: JSON.stringify({ 'url': 'https://chapterup.zhuishushenqi.com/chapter/' + this.chapter_link }),
-            })
+                    method: "POST",
+                    body: JSON.stringify({
+                        'url': 'https://chapterup.zhuishushenqi.com/chapter/' + this.chapter_link
+                    }),
+                })
                 .then(res => res.json())
                 .then(res => {
                     this.now_chapter_content = res;
@@ -310,20 +365,21 @@ const Book = {
                         this.chapter_status = true;
                         this.is_vip = this.now_chapter_content.chapter.hasOwnProperty('cpContent');
                         if (this.is_vip) {
-                            this.now_chapter_content.chapter.cpContent = (this.now_chapter_content.chapter.cpContent).replace(/\n/g, '<br/>');
+                            this.now_chapter_content.chapter.cpContent = (this.now_chapter_content.chapter.cpContent).replace(/\n\n/g, '\n').replace(/\n/g, '<br/><br/>').replace(/\s/g, '');
+                        } else {
+                            this.now_chapter_content.chapter.body = (this.now_chapter_content.chapter.body).replace(/\n\n/g, '\n').replace(/\n/g, '<br/><br/>').replace(/\s/g, '');
                         }
-                        else {
-                            this.now_chapter_content.chapter.body = (this.now_chapter_content.chapter.body).replace(/\n/g, '<br/>');
+                        // 初始化滚动条
+                        if (document.querySelector('#book-read-area')) {
+                            document.querySelector('#book-read-area').scrollTop = 0;
                         }
-                        document.querySelector('#book-area').scrollTop = 0;
+
                     } else {
                         this.chapter_status = false;
                         console.log('读取章节内容出错，具体原因为：' + this.now_chapter_content.message);
                         alert('当前源好像坏了，\n建议换源再试。');
                     }
                 })
-            // 每一次加载章节后，保存历史到localstorage
-            localStorage[this.book_id] = { 'book_source_id': this.book_source_id, 'now_index': this.now_index }
         },
         show_chapter_list_func: function () {
             console.log('切换目录/正文');
@@ -348,13 +404,13 @@ const Book = {
             console.log('全屏操作');
             let isFullscreen = document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen;
             var el = document.querySelector('#app');
-            if (!isFullscreen) {//进入全屏,多重短路表达式
+            if (!isFullscreen) { //进入全屏,多重短路表达式
                 this.isFullscreen = true;
                 el.style.top = '0px';
                 el.style.bottom = '0px';
                 el.style.zIndex = '2';
                 fullScreen();
-            } else {	//退出全屏,三目运算符
+            } else { //退出全屏,三目运算符
                 this.isFullscreen = false;
                 el.style.top = '50px';
                 el.style.bottom = '50px';
@@ -370,6 +426,10 @@ const Book = {
                     var WsShell = new ActiveXObject('WScript.Shell')
                     WsShell.SendKeys('{F11}');
                 }
+                // Webkit (works in Safari5.1 and Chrome 15)  
+                else if (element.webkitRequestFullScreen) {
+                    element.webkitRequestFullScreen();
+                }
                 //HTML W3C 提议  
                 else if (element.requestFullScreen) {
                     element.requestFullScreen();
@@ -378,10 +438,7 @@ const Book = {
                 else if (element.msRequestFullscreen) {
                     element.msRequestFullscreen();
                 }
-                // Webkit (works in Safari5.1 and Chrome 15)  
-                else if (element.webkitRequestFullScreen) {
-                    element.webkitRequestFullScreen();
-                }
+
                 // Firefox (works in nightly)  
                 else if (element.mozRequestFullScreen) {
                     element.mozRequestFullScreen();
@@ -390,11 +447,15 @@ const Book = {
 
             //退出全屏  
             function fullExit() {
-                var element = document.documentElement;//若要全屏页面中div，var element= document.getElementById("divID");   
+                var element = document.documentElement; //若要全屏页面中div，var element= document.getElementById("divID");   
                 //IE ActiveXObject  
                 if (window.ActiveXObject) {
                     var WsShell = new ActiveXObject('WScript.Shell')
                     WsShell.SendKeys('{F11}');
+                }
+                // Webkit (works in Safari5.1 and Chrome 15)  
+                else if (element.webkitRequestFullScreen) {
+                    document.webkitCancelFullScreen();
                 }
                 //HTML5 W3C 提议  
                 else if (element.requestFullScreen) {
@@ -404,15 +465,50 @@ const Book = {
                 else if (element.msRequestFullscreen) {
                     document.msExitFullscreen();
                 }
-                // Webkit (works in Safari5.1 and Chrome 15)  
-                else if (element.webkitRequestFullScreen) {
-                    document.webkitCancelFullScreen();
-                }
+
                 // Firefox (works in nightly)  
                 else if (element.mozRequestFullScreen) {
                     document.mozCancelFullScreen();
                 }
             }
+        },
+        put_to_mybook: function () {
+            // 判断收藏状态，若已收藏，执行取消收藏操作，反之则反之
+            if (this.is_collecting) {
+                console.log('取消收藏');
+                this.is_collecting = false;
+                let mybooks = JSON.parse(localStorage.mybooks);
+                delete mybooks[this.book_id];
+                localStorage.mybooks = JSON.stringify(mybooks);
+            } else {
+                // 开始收集信息
+                let book_info = {
+                    book_id: this.book_id,
+                    book_source_id: this.book_source_id,
+                    now_index: this.now_index,
+                }
+                save_book_to_localstorage(book_info)
+                // 
+                function save_book_to_localstorage(book_info) {
+                    var mybooks = localStorage.mybooks;
+                    if (mybooks) {
+                        mybooks = JSON.parse(localStorage.mybooks);
+                        save(book_info);
+                        console.log('更新收藏信息成功，书籍 id 为 ' + book_info.book_id);
+                    } else {
+                        mybooks = {};
+                        save(book_info);
+                        console.log('收藏成功，书籍 id 为 ' + book_info.book_id);
+                    }
+
+                    function save(book_info) {
+                        mybooks[book_info.book_id] = JSON.stringify(book_info);
+                        localStorage.mybooks = JSON.stringify(mybooks);
+                    }
+                }
+                this.is_collecting = true;
+            }
+
         }
     }
 }
@@ -420,14 +516,34 @@ const Book = {
 /////////////////////////////////////
 //   路由
 // 生成路径
-const routes = [
-    { path: '/', component: MyBook },
-    { path: '/finding', component: Finding },
-    { path: '/sort', component: Sort },
-    { path: '/ranking', component: Ranking },
-    { path: '/search', component: Search },
-    { path: '/book-list', component: BookList },
-    { path: '/book', component: Book },
+const routes = [{
+        path: '/',
+        component: MyBook
+    },
+    {
+        path: '/finding',
+        component: Finding
+    },
+    {
+        path: '/sort',
+        component: Sort
+    },
+    {
+        path: '/ranking',
+        component: Ranking
+    },
+    {
+        path: '/search',
+        component: Search
+    },
+    {
+        path: '/book-list',
+        component: BookList
+    },
+    {
+        path: '/book',
+        component: Book
+    },
 ]
 
 // 通过路径生成路由
@@ -438,6 +554,7 @@ const router = new VueRouter({
 
 /////////////////////////////////////
 //   实例
+//   生成实例
 var app = new Vue({
     el: '#app',
     router: router,
