@@ -1,6 +1,6 @@
 console.log('开始执行 index.js');
 // 代理网关
-PROX_GATE = 'https://api.imhcg.cn/api/v1/proxy'
+PROX_GATE = 'https://api.imhcg.cn/api/v1/proxy';
 
 /////////////////////////////////////
 //   组件
@@ -74,17 +74,15 @@ const MyBook = {
         let id_list = Object.keys(JSON.parse(localStorage.mybooks));
         id_list.forEach(id => {
             fetch(PROX_GATE, {
-                method: "POST",
-                body: JSON.stringify({
-                    'url': 'http://api.zhuishushenqi.com/book/'+id
-                }),
-            })
-            .then(res => res.json())
-            .then(res => {
-                console.log(res);
-                this.Book_data.push(res);
-            })
-            
+                    method: "POST",
+                    body: JSON.stringify({
+                        'url': 'http://api.zhuishushenqi.com/book/' + id
+                    }),
+                })
+                .then(res => res.json())
+                .then(res => {
+                    this.Book_data.push(res);
+                })
         })
     }
 }
@@ -281,34 +279,45 @@ const Book = {
         },
         now_index: function () {
             console.log('检测到索引变动')
-            // 更新收藏状态
-            this.is_collecting = !!((JSON.parse(localStorage.mybooks))[this.book_id]);
+            // 如果收藏容器存在
+            if (!!(localStorage.mybooks)) {
+                // 更新收藏状态
+                if (!!((JSON.parse(localStorage.mybooks))[this.book_id])){
+                    this.is_collecting = true;
+                }
+                
+                if (this.is_collecting) {
+                    this.save_book_to_localstorage();
+                }
+            }
             // 如果已经缓存了章节，直接跳转，否则不执行
             if (this.chapters) {
                 this.load_chapter();
-                if (this.is_collecting) {
-                    this.put_to_mybook();
-                }
             }
         },
     },
     beforeMount: function () {
         this.book_id = this.$route.query.book_id;
         console.log('初始化阅读组件，书籍 id 为 ', this.book_id);
-        // 检查是否有收藏记录
-        if (!!((JSON.parse(localStorage.mybooks))[this.book_id])) {
-            console.log('读取记录');
-            let book_info = JSON.parse((JSON.parse(localStorage.mybooks))[this.book_id])
-            console.log(book_info);
-            this.book_id = book_info.book_id;
-            this.book_source_id = book_info.book_source_id;
-            this.now_index = book_info.now_index;
+        // 检查收藏容器是否存在
+        if (!!(localStorage.mybooks)) {
+            // 检查是否有收藏记录
+            if (!!((JSON.parse(localStorage.mybooks))[this.book_id])) {
+                console.log('读取记录');
+                let book_info = JSON.parse((JSON.parse(localStorage.mybooks))[this.book_id])
+                this.book_id = book_info.book_id;
+                this.book_source_id = book_info.book_source_id;
+                this.now_index = book_info.now_index;
+            }
         }
+
         // 判断书源，返回选择器或者直接加载章节
         if (!this.book_source_id) {
+            console.log('读取书源失败');
             this.get_book_source();
-            this.msg = '书源选择'
+            this.msg = '书源选择';
         } else {
+            console.log('读取书源成功');
             this.get_chapters();
         }
     },
@@ -481,34 +490,33 @@ const Book = {
                 delete mybooks[this.book_id];
                 localStorage.mybooks = JSON.stringify(mybooks);
             } else {
-                // 开始收集信息
-                let book_info = {
-                    book_id: this.book_id,
-                    book_source_id: this.book_source_id,
-                    now_index: this.now_index,
-                }
-                save_book_to_localstorage(book_info)
-                // 
-                function save_book_to_localstorage(book_info) {
-                    var mybooks = localStorage.mybooks;
-                    if (mybooks) {
-                        mybooks = JSON.parse(localStorage.mybooks);
-                        save(book_info);
-                        console.log('更新收藏信息成功，书籍 id 为 ' + book_info.book_id);
-                    } else {
-                        mybooks = {};
-                        save(book_info);
-                        console.log('收藏成功，书籍 id 为 ' + book_info.book_id);
-                    }
-
-                    function save(book_info) {
-                        mybooks[book_info.book_id] = JSON.stringify(book_info);
-                        localStorage.mybooks = JSON.stringify(mybooks);
-                    }
-                }
+                // 保存记录
+                this.save_book_to_localstorage();
                 this.is_collecting = true;
             }
+        },
+        save_book_to_localstorage: function() {
+            // 开始收集信息
+            let book_info = {
+                book_id: this.book_id,
+                book_source_id: this.book_source_id,
+                now_index: this.now_index,
+            }
+            var mybooks = localStorage.mybooks;
+            if (mybooks) {
+                mybooks = JSON.parse(localStorage.mybooks);
+                save(book_info);
+                console.log('更新收藏信息成功，书籍 id 为 ' + book_info.book_id);
+            } else {
+                mybooks = {};
+                save(book_info);
+                console.log('收藏成功，书籍 id 为 ' + book_info.book_id);
+            }
 
+            function save(book_info) {
+                mybooks[book_info.book_id] = JSON.stringify(book_info);
+                localStorage.mybooks = JSON.stringify(mybooks);
+            }
         }
     }
 }

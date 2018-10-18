@@ -345,29 +345,30 @@ img {
 }
 
 /* 书架 */
-.book-item {
+.mybook-item {
     padding: .5rem ;
     margin: 0;
     margin-top: .1rem;
     display: flex;
     justify-content: space-between;
+    background-color: #fff2f2;
 }
-.book-cover img {
+.mybook-cover img {
     width: 4rem;
 }
-.book-info {
+.mybook-info {
     display: flex; 
 }
-.book-info-item {
+.mybook-info-item {
     margin: .1rem 0;
 }
-.book-info-text {
+.mybook-info-text {
     display: flex;
     flex-direction: column;
     margin: 0 .5rem;
     font-weight: lighter;
 }
-.read-btn {
+.mybook-read-btn {
     display: flex;
     align-items: center;
     justify-content: center;

@@ -21,22 +21,22 @@
             <search-head></search-head>
             <func-swich active="mybook"></func-swich>
             <ul id="list" v-if="Book_data">
-                <li class="book-item" v-for="book in Book_data">
-                    <div class="book-info">
-                        <div class="book-cover">
+                <li class="mybook-item" v-for="book in Book_data">
+                    <div class="mybook-info">
+                        <div class="mybook-cover">
                             <img v-bind:src="'http://statics.zhuishushenqi.com'+book.cover" alt="">
                         </div>
-                        <ul class="book-info-text">
-                            <li class="book-info-item book-title">
+                        <ul class="mybook-info-text">
+                            <li class="mybook-info-item book-title">
                                 <router-link :to="{ path:'/book', query: { book_id: book['_id']}}">
                                 <p class="book-title">{{book.title}}</p> 
                                 </router-link>
                                 
                             </li>
-                            <li class="book-info-item book-author">
+                            <li class="mybook-info-item book-author">
                                 {{book.author}}
                             </li>
-                            <li class="book-info-item">
+                            <li class="mybook-info-item">
                                 {{book.lastChapter}}
                             </li>
                         </ul>
@@ -286,8 +286,8 @@
 
         </div>
     </template>
-    <script src="https://s2.pstatp.com/cdn/expire-1-M/vue/2.5.6/vue.js"></script>
-    <!-- <script src="https://s2.pstatp.com/cdn/expire-1-M/vue/2.5.6/vue.min.js"></script> -->
+    <!-- <script src="https://s2.pstatp.com/cdn/expire-1-M/vue/2.5.6/vue.js"></script> -->
+    <script src="https://s2.pstatp.com/cdn/expire-1-M/vue/2.5.6/vue.min.js"></script>
     <script src="https://s2.pstatp.com/cdn/expire-1-M/vue-router/3.0.1/vue-router.min.js"></script>
     <script src="./script/index.js"></script>
 </body>
