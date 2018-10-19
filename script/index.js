@@ -212,7 +212,7 @@ const BookList = {
             fetch(PROX_GATE, {
                     method: "POST",
                     body: JSON.stringify({
-                        'url': 'https://api.zhuishushenqi.com/book/by-categories?gender=' + this.gender + '&type=hot&major=' + this.major + '&minor=&start=' + this.major_start + '&limit=10'
+                        'url': 'http://api.zhuishushenqi.com/book/by-categories?gender=' + this.gender + '&type=hot&major=' + this.major + '&minor=&start=' + this.major_start + '&limit=10'
                     }),
                 })
                 .then(res => res.json())
@@ -348,7 +348,7 @@ const Book = {
             fetch(PROX_GATE, {
                     method: "POST",
                     body: JSON.stringify({
-                        'url': 'https://api.zhuishushenqi.com/atoc/' + this.book_source_id + '?view=chapters'
+                        'url': 'http://api.zhuishushenqi.com/atoc/' + this.book_source_id + '?view=chapters'
                     }),
                 })
                 .then(res => res.json())
@@ -364,7 +364,7 @@ const Book = {
             fetch(PROX_GATE, {
                     method: "POST",
                     body: JSON.stringify({
-                        'url': 'https://chapterup.zhuishushenqi.com/chapter/' + this.chapter_link
+                        'url': 'http://chapterup.zhuishushenqi.com/chapter/' + this.chapter_link
                     }),
                 })
                 .then(res => res.json())
@@ -406,7 +406,6 @@ const Book = {
             }
         },
         add_index: function () {
-            // 有些时候会被当做字符串
             this.now_index = parseFloat(this.now_index) + 1;
         },
         full_screen: function () {
@@ -418,18 +417,17 @@ const Book = {
                 el.style.top = '0px';
                 el.style.bottom = '0px';
                 el.style.zIndex = '2';
-                fullScreen();
+                fullScreen(el);
             } else { //退出全屏,三目运算符
                 this.isFullscreen = false;
                 el.style.top = '50px';
                 el.style.bottom = '50px';
                 el.style.zIndex = '1';
-                fullExit();
+                fullExit(el);
             }
 
             //全屏  
-            function fullScreen() {
-                var element = document.documentElement; //若要全屏页面中div，var element= document.getElementById("divID");  
+            function fullScreen(element) {
                 //IE 10及以下ActiveXObject  
                 if (window.ActiveXObject) {
                     var WsShell = new ActiveXObject('WScript.Shell')
@@ -455,8 +453,8 @@ const Book = {
             }
 
             //退出全屏  
-            function fullExit() {
-                var element = document.documentElement; //若要全屏页面中div，var element= document.getElementById("divID");   
+            function fullExit(element) {
+                // var element = document.documentElement; //若要全屏页面中div，var element= document.getElementById("divID");   
                 //IE ActiveXObject  
                 if (window.ActiveXObject) {
                     var WsShell = new ActiveXObject('WScript.Shell')

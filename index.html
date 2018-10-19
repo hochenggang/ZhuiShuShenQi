@@ -20,29 +20,31 @@
         <div id="mybook">
             <search-head></search-head>
             <func-swich active="mybook"></func-swich>
-            <ul id="list" v-if="Book_data">
-                <li class="mybook-item" v-for="book in Book_data">
-                    <div class="mybook-info">
-                        <div class="mybook-cover">
-                            <img v-bind:src="'http://statics.zhuishushenqi.com'+book.cover" alt="">
+            <div id="mybook-area">
+                <ul id="list" v-if="Book_data">
+                    <li class="mybook-item" v-for="book in Book_data">
+                        <div class="mybook-info">
+                            <div class="mybook-cover">
+                                <img v-bind:src="'http://statics.zhuishushenqi.com'+book.cover" alt="">
+                            </div>
+                            <ul class="mybook-info-text">
+                                <li class="mybook-info-item book-title">
+                                    <router-link :to="{ path:'/book', query: { book_id: book['_id']}}">
+                                        <p class="book-title">{{book.title}}</p>
+                                    </router-link>
+
+                                </li>
+                                <li class="mybook-info-item book-author">
+                                    {{book.author}}
+                                </li>
+                                <li class="mybook-info-item">
+                                    {{book.lastChapter}}
+                                </li>
+                            </ul>
                         </div>
-                        <ul class="mybook-info-text">
-                            <li class="mybook-info-item book-title">
-                                <router-link :to="{ path:'/book', query: { book_id: book['_id']}}">
-                                <p class="book-title">{{book.title}}</p> 
-                                </router-link>
-                                
-                            </li>
-                            <li class="mybook-info-item book-author">
-                                {{book.author}}
-                            </li>
-                            <li class="mybook-info-item">
-                                {{book.lastChapter}}
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </template>
 
@@ -183,14 +185,12 @@
         </div>
     </template>
 
-
-
     <!-- 附带搜索的头部 -->
     <template id="template-search-header">
         <div id="search-header">
             <ul id="search-header-items">
                 <li class="search-header-item">
-                    <a id="search-header-logo" href="/">追书</a>
+                    <a id="search-header-logo" href="./">追书</a>
                 </li>
                 <li class="search-header-item">
                     <span id="search-header-input-box">
@@ -198,7 +198,7 @@
                             <img v-if="!show_search_input" v-on:click="swich_icon_input" src="data:image/svg+xml;base64,CjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDEwMDAgMTAwMCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAwMCAxMDAwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPG1ldGFkYXRhPiDnn6Lph4/lm77moIfkuIvovb0gOiBodHRwOi8vd3d3LnNmb250LmNuLyA8L21ldGFkYXRhPjxnPjxwYXRoIGQ9Ik05NzEuOSw5NzEuOWMtMjQuMSwyNC4xLTYzLjIsMjQuMS04Ny4zLDBMNjk1LjEsNzgyLjVDNjIzLjYsODM1LjksNTM1LjIsODY4LDQzOSw4NjhDMjAyLjEsODY4LDEwLDY3NS45LDEwLDQzOUMxMCwyMDIuMSwyMDIuMSwxMCw0MzksMTBjMjM2LjksMCw0MjksMTkyLjEsNDI5LDQyOWMwLDk2LjEtMzIsMTg0LjYtODUuNSwyNTYuMmwxODkuNCwxODkuNEM5OTYsOTA4LjcsOTk2LDk0Ny44LDk3MS45LDk3MS45eiBNNDM5LDEzMi42Yy0xNjkuMiwwLTMwNi40LDEzNy4yLTMwNi40LDMwNi40YzAsMTY5LjIsMTM3LjIsMzA2LjQsMzA2LjQsMzA2LjRTNzQ1LjQsNjA4LjIsNzQ1LjQsNDM5Qzc0NS40LDI2OS44LDYwOC4yLDEzMi42LDQzOSwxMzIuNnoiIHN0eWxlPSJmaWxsOiNGRkZGRkYiPjwvcGF0aD48L2c+PC9zdmc+ICA=">
                         </span>
                         <input v-on:blur="swich_icon_input" v-on:keyup.13="redirect_to_search" v-if="show_search_input"
-                            type="text" id="search-header-input">
+                            type="text" id="search-header-input" autofocus>
                     </span>
                 </li>
             </ul>
@@ -250,7 +250,7 @@
                 </div>
 
                 <div v-if="book_source_id && !chapters" id="book-source-selector">
-                    <p>正在加载章节列表...</p>
+                    <p>正在请求书籍信息...</p>
                 </div>
 
                 <div v-if="now_chapter_content['ok'] && !show_chapter_list" id="book-read-area">
