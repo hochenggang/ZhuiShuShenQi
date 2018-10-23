@@ -1,6 +1,6 @@
 console.log('开始执行 index.js');
 // 代理网关
-PROX_GATE = 'https://api.d-c.bid/v1/proxy';
+PROX_GATE = 'https://api.imhcg.cn/api/v1/proxy';
 
 /////////////////////////////////////
 //   组件
