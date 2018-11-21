@@ -1,7 +1,9 @@
 ## 追书神器
 ### API
 http 和 https 均可以成功请求
+
 #### 排行榜
+
 功能 | 地址
 ---|---
 男女排行榜 | http://api.zhuishushenqi.com/ranking/gender
@@ -10,6 +12,7 @@ http 和 https 均可以成功请求
 #### 主题书单
 涉及的参数说明：
 duration是时间区间，可选参数为last-seven-days、all，分别对应最近七天和全部时间。sort为类别，可选参数为collectorCount、created、updated，分别对应按收藏数、按创建时间、按最后回复时间来排序。start为开始值。gender值分别可以为 male、female，对应男女。
+
 功能 | 地址
 ---|---
 本周最热 | http://api.zhuishushenqi.com/book-list?duration=last-seven-days&sort=collectorCount&start=0&gender=male
@@ -19,6 +22,7 @@ duration是时间区间，可选参数为last-seven-days、all，分别对应最
 #### 分类
 涉及的参数说明：
 major是一级分类，minor是二级分类，两者均取自两级分类 API。 type值可以为 new、hot、reputation、over 分别对应新书、热门、口碑、完结四类书单。gender值分别可以为 male、female，对应男女。
+
 功能 | 地址
 ---|---
 两级分类-简单-不含书籍数量 | http://api.zhuishushenqi.com/cats/lv2
@@ -51,6 +55,7 @@ major是一级分类，minor是二级分类，两者均取自两级分类 API。
 
 
 ## 社区
+
 功能 | 地址
 ---|---
 精选讨论|http://api.zhuishushenqi.com/post/review/best-by-book?book=5816b415b06d1d32157790b1
