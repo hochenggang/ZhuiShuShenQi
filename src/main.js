@@ -6,8 +6,8 @@ import MyBook from './components/MyBook';
 import Finding from './components/Finding';
 import Search from './components/Search';
 import Reader from './components/Reader';
-import FindingTarget from './components/FindingTarget'
-import BookList from './components/BookList'
+import FindingTarget from './components/FindingTarget';
+import BookList from './components/BookList';
 
 // 引入Vue的路由系统
 import VueRouter from 'vue-router';

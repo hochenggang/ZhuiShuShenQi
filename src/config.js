@@ -9,6 +9,9 @@ export default {
     Ranking:"https://api.zhuishushenqi.com/ranking/gender",
     BookByCat:"https://api.zhuishushenqi.com/book/by-categories",
     BookByRanking:"https://api.zhuishushenqi.com/ranking/",
+  },
+  Cache:{
+    'name':'zhuishuweb_cache',
   }
 }
 

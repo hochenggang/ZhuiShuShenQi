@@ -90,7 +90,7 @@ export default {
 .input {
     /* display: table-cell;
     vertical-align: middle; */
-    font-size: 1rem;
+    font-size: .9rem;
     width: 9em;
     border: none;
     border-radius: 1rem;

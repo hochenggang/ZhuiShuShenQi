@@ -2,7 +2,7 @@
     <div class="swich">
         <ul class="items">
             <li class="item">
-                <router-link to="/mybook">书架</router-link>
+                <router-link to="/mybook">收藏</router-link>
             </li>
             <li class="item">
                 <router-link to="/finding">发现</router-link>

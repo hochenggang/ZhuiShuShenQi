@@ -50,7 +50,7 @@ export default {
     }
   },
   beforeMount: function() {
-    console.log(this.query);
+    // console.log(this.query);
     switch (this.query.from) {
       case "sort":
         // 请求分类

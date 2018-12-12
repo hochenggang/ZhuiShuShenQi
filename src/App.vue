@@ -39,9 +39,7 @@ img {
     border-radius: .3rem;
 }
 
-#app {
-    width: 100%;
-    height: 100%;
-    background-color: #FFFFFD;
+* {
+    box-sizing: border-box;
 }
 </style>

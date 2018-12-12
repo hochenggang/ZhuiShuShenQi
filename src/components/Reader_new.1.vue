@@ -11,40 +11,46 @@
             <ul class="menu">
                 <li @click="reading.chapter_index-=1" class="menu-item last">
                     <p>
-                       <img src="data:image/svg+xml;base64,CjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDEwMDAgMTAwMCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAwMCAxMDAwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPG1ldGFkYXRhPiDnn6Lph4/lm77moIfkuIvovb0gOiBodHRwOi8vd3d3LnNmb250LmNuLyA8L21ldGFkYXRhPjxnPjxnIHRyYW5zZm9ybT0ibWF0cml4KDEgMCAwIC0xIDAgMTAwOCkiPjxwYXRoIGQ9Ik0xMCw1MDhsNDAyLjUsNDkwTDU3MCw4NThMMzYwLDYxM2g2MzBWNDAzSDM2MGwyMTAtMjQ1TDQxMi41LDE4TDEwLDUwOHoiIHN0eWxlPSJmaWxsOiNBQ0FDQUMiPjwvcGF0aD48L2c+PC9nPjwvc3ZnPiAg">
+                        <!-- iCon by SFont.Cn --> <img src="data:image/svg+xml;base64,CjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDEwMDAgMTAwMCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAwMCAxMDAwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPG1ldGFkYXRhPiDnn6Lph4/lm77moIfkuIvovb0gOiBodHRwOi8vd3d3LnNmb250LmNuLyA8L21ldGFkYXRhPjxnPjxnIHRyYW5zZm9ybT0ibWF0cml4KDEgMCAwIC0xIDAgMTAwOCkiPjxwYXRoIGQ9Ik0xMCw1MDhsNDAyLjUsNDkwTDU3MCw4NThMMzYwLDYxM2g2MzBWNDAzSDM2MGwyMTAtMjQ1TDQxMi41LDE4TDEwLDUwOHoiIHN0eWxlPSJmaWxsOiNBQ0FDQUMiPjwvcGF0aD48L2c+PC9nPjwvc3ZnPiAg">
                     </p>
                 </li>
                 <li @click="need_catalog = !need_catalog" class="menu-item last">
                     <p>
-                        <img v-if="!need_catalog" src="data:image/svg+xml;base64,CjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDEwMDAgMTAwMCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAwMCAxMDAwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPG1ldGFkYXRhPiDnn6Lph4/lm77moIfkuIvovb0gOiBodHRwOi8vd3d3LnNmb250LmNuLyA8L21ldGFkYXRhPjxnPjxnIHRyYW5zZm9ybT0ibWF0cml4KDEgMCAwIC0xIDAgMTAwOCkiPjxwYXRoIGQ9Ik00NjkuNCw3ODMuNlYxNDAuNWgtNDUuOWMtMS43LDEuMS02LjksNC43LTE1LjcsMTAuNmMtOC44LDYtMTQuMiw5LjYtMTYuMiwxMS4xYy0yLDEuNC02LjcsNC41LTE0LDkuNHMtMTIuNiw3LjgtMTUuNyw4LjljLTMuMSwxLjEtNy45LDMuNC0xNC41LDYuOGMtNi41LDMuNC0xMS45LDUuNS0xNi4yLDYuNGMtNC4zLDAuOC05LjYsMi4xLTE2LjIsMy44Yy02LjUsMS43LTEyLjksMi44LTE5LjEsMy40Yy02LjIsMC42LTEyLjgsMC45LTE5LjYsMC45SDEwdjY3My44aDI3NS42YzE0LjcsMCwzMS42LTEuNiw1MC42LTQuN2MxOS0zLjEsMzktNy45LDYwLTE0LjVjMjEtNi41LDM4LjQtMTYuMiw1Mi4zLTI4LjlDNDYyLjQsODE0LjcsNDY5LjQsODAwLjEsNDY5LjQsNzgzLjZ6IE05OTAsODc1LjVWMjAxLjhINzIzLjdjLTYuOCwwLTEzLjMtMC4zLTE5LjYtMC45Yy02LjItMC42LTEyLjYtMS43LTE5LjEtMy40Yy02LjUtMS43LTExLjktMy0xNi4yLTMuOGMtNC4zLTAuOS05LjYtMy0xNi4yLTYuNGMtNi41LTMuNC0xMS4zLTUuNy0xNC41LTYuOGMtMy4xLTEuMS04LjQtNC4xLTE1LjctOC45cy0xMi4xLTcuOS0xNC05LjRjLTItMS40LTcuNC01LjEtMTYuMi0xMS4xYy04LjgtNi0xNC05LjUtMTUuNy0xMC42aC00NS45djY0My4xYzAsMTYuNCw2LjksMzEuMSwyMC44LDQzLjhjMTMuOSwxMi44LDMxLjMsMjIuNCw1Mi4zLDI4LjljMjEsNi41LDQxLDExLjMsNjAsMTQuNXMzNS45LDQuNyw1MC42LDQuN0g5OTB6IiBzdHlsZT0iZmlsbDojQUNBQ0FDIj48L3BhdGg+PC9nPjwvZz48L3N2Zz4gIA==">
-                        <img v-if="need_catalog" src="data:image/svg+xml;base64,CjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDEwMDAgMTAwMCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAwMCAxMDAwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPG1ldGFkYXRhPiDnn6Lph4/lm77moIfkuIvovb0gOiBodHRwOi8vd3d3LnNmb250LmNuLyA8L21ldGFkYXRhPjxnPjxnIHRyYW5zZm9ybT0ibWF0cml4KDEgMCAwIC0xIDAgMTAwOCkiPjxwYXRoIGQ9Ik00NjkuNCw3ODMuNlYxNDAuNWgtNDUuOWMtMS43LDEuMS02LjksNC43LTE1LjcsMTAuNmMtOC44LDYtMTQuMiw5LjYtMTYuMiwxMS4xYy0yLDEuNC02LjcsNC41LTE0LDkuNHMtMTIuNiw3LjgtMTUuNyw4LjljLTMuMSwxLjEtNy45LDMuNC0xNC41LDYuOGMtNi41LDMuNC0xMS45LDUuNS0xNi4yLDYuNGMtNC4zLDAuOC05LjYsMi4xLTE2LjIsMy44Yy02LjUsMS43LTEyLjksMi44LTE5LjEsMy40Yy02LjIsMC42LTEyLjgsMC45LTE5LjYsMC45SDEwdjY3My44aDI3NS42YzE0LjcsMCwzMS42LTEuNiw1MC42LTQuN2MxOS0zLjEsMzktNy45LDYwLTE0LjVjMjEtNi41LDM4LjQtMTYuMiw1Mi4zLTI4LjlDNDYyLjQsODE0LjcsNDY5LjQsODAwLjEsNDY5LjQsNzgzLjZ6IE05OTAsODc1LjVWMjAxLjhINzIzLjdjLTYuOCwwLTEzLjMtMC4zLTE5LjYtMC45Yy02LjItMC42LTEyLjYtMS43LTE5LjEtMy40Yy02LjUtMS43LTExLjktMy0xNi4yLTMuOGMtNC4zLTAuOS05LjYtMy0xNi4yLTYuNGMtNi41LTMuNC0xMS4zLTUuNy0xNC41LTYuOGMtMy4xLTEuMS04LjQtNC4xLTE1LjctOC45cy0xMi4xLTcuOS0xNC05LjRjLTItMS40LTcuNC01LjEtMTYuMi0xMS4xYy04LjgtNi0xNC05LjUtMTUuNy0xMC42aC00NS45djY0My4xYzAsMTYuNCw2LjksMzEuMSwyMC44LDQzLjhjMTMuOSwxMi44LDMxLjMsMjIuNCw1Mi4zLDI4LjljMjEsNi41LDQxLDExLjMsNjAsMTQuNXMzNS45LDQuNyw1MC42LDQuN0g5OTB6IiBzdHlsZT0iZmlsbDojMzM0NzVmIj48L3BhdGg+PC9nPjwvZz48L3N2Zz4gIA==">
+                      <!-- iCon by SFont.Cn --> <img src="data:image/svg+xml;base64,CjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDEwMDAgMTAwMCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAwMCAxMDAwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPG1ldGFkYXRhPiDnn6Lph4/lm77moIfkuIvovb0gOiBodHRwOi8vd3d3LnNmb250LmNuLyA8L21ldGFkYXRhPjxnPjxnIHRyYW5zZm9ybT0ibWF0cml4KDEgMCAwIC0xIDAgMTAwOCkiPjxwYXRoIGQ9Ik00NjkuNCw3ODMuNlYxNDAuNWgtNDUuOWMtMS43LDEuMS02LjksNC43LTE1LjcsMTAuNmMtOC44LDYtMTQuMiw5LjYtMTYuMiwxMS4xYy0yLDEuNC02LjcsNC41LTE0LDkuNHMtMTIuNiw3LjgtMTUuNyw4LjljLTMuMSwxLjEtNy45LDMuNC0xNC41LDYuOGMtNi41LDMuNC0xMS45LDUuNS0xNi4yLDYuNGMtNC4zLDAuOC05LjYsMi4xLTE2LjIsMy44Yy02LjUsMS43LTEyLjksMi44LTE5LjEsMy40Yy02LjIsMC42LTEyLjgsMC45LTE5LjYsMC45SDEwdjY3My44aDI3NS42YzE0LjcsMCwzMS42LTEuNiw1MC42LTQuN2MxOS0zLjEsMzktNy45LDYwLTE0LjVjMjEtNi41LDM4LjQtMTYuMiw1Mi4zLTI4LjlDNDYyLjQsODE0LjcsNDY5LjQsODAwLjEsNDY5LjQsNzgzLjZ6IE05OTAsODc1LjVWMjAxLjhINzIzLjdjLTYuOCwwLTEzLjMtMC4zLTE5LjYtMC45Yy02LjItMC42LTEyLjYtMS43LTE5LjEtMy40Yy02LjUtMS43LTExLjktMy0xNi4yLTMuOGMtNC4zLTAuOS05LjYtMy0xNi4yLTYuNGMtNi41LTMuNC0xMS4zLTUuNy0xNC41LTYuOGMtMy4xLTEuMS04LjQtNC4xLTE1LjctOC45cy0xMi4xLTcuOS0xNC05LjRjLTItMS40LTcuNC01LjEtMTYuMi0xMS4xYy04LjgtNi0xNC05LjUtMTUuNy0xMC42aC00NS45djY0My4xYzAsMTYuNCw2LjksMzEuMSwyMC44LDQzLjhjMTMuOSwxMi44LDMxLjMsMjIuNCw1Mi4zLDI4LjljMjEsNi41LDQxLDExLjMsNjAsMTQuNXMzNS45LDQuNyw1MC42LDQuN0g5OTB6IiBzdHlsZT0iZmlsbDojQUNBQ0FDIj48L3BhdGg+PC9nPjwvZz48L3N2Zz4gIA==">
                     </p>
                 </li>
-                <li @click="reading.collected = !reading.collected" class="menu-item menu">
+                <li @click="need_setting = !need_setting" class="menu-item menu">
                     <p>
-                        <img v-if="!reading.collected" src="data:image/svg+xml;base64,CjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDEwMDAgMTAwMCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAwMCAxMDAwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPG1ldGFkYXRhPiDnn6Lph4/lm77moIfkuIvovb0gOiBodHRwOi8vd3d3LnNmb250LmNuLyA8L21ldGFkYXRhPjxnPjxnIHRyYW5zZm9ybT0ibWF0cml4KDEgMCAwIC0xIDAgMTAwOCkiPjxwYXRoIGQ9Ik01MDAsMTc1LjVMMjAyLjUsMThsLTcwLDcwTDIyMCw0MDNMMTAsNjMwLjVMNDUsNzE4aDI2Mi41bDE0OC44LDI4MGg4Ny41bDE0OC44LTI4MEg5NTVsMzUtODcuNUw3ODAsNDAzbDg3LjUtMzE1bC03MC03MEw1MDAsMTc1LjV6IiBzdHlsZT0iZmlsbDojQUNBQ0FDIj48L3BhdGg+PC9nPjwvZz48L3N2Zz4gIA==">
-                        <img v-if="reading.collected" src="data:image/svg+xml;base64,CjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDEwMDAgMTAwMCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAwMCAxMDAwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPG1ldGFkYXRhPiDnn6Lph4/lm77moIfkuIvovb0gOiBodHRwOi8vd3d3LnNmb250LmNuLyA8L21ldGFkYXRhPjxnPjxnIHRyYW5zZm9ybT0ibWF0cml4KDEgMCAwIC0xIDAgMTAwOCkiPjxwYXRoIGQ9Ik01MDAsMTc1LjVMMjAyLjUsMThsLTcwLDcwTDIyMCw0MDNMMTAsNjMwLjVMNDUsNzE4aDI2Mi41bDE0OC44LDI4MGg4Ny41bDE0OC44LTI4MEg5NTVsMzUtODcuNUw3ODAsNDAzbDg3LjUtMzE1bC03MC03MEw1MDAsMTc1LjV6IiBzdHlsZT0iZmlsbDojMzM0NzVmIj48L3BhdGg+PC9nPjwvZz48L3N2Zz4gIA==">
+                        <!-- iCon by SFont.Cn --> <img src="data:image/svg+xml;base64,CjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDEwMDAgMTAwMCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAwMCAxMDAwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPG1ldGFkYXRhPiDnn6Lph4/lm77moIfkuIvovb0gOiBodHRwOi8vd3d3LnNmb250LmNuLyA8L21ldGFkYXRhPjxnPjxnIHRyYW5zZm9ybT0ibWF0cml4KDEgMCAwIC0xIDAgMTAwOCkiPjxwYXRoIGQ9Ik04ODEuMSw1NjYuM2M1LjItMzguOSw1LjItNzcuOCwwLTExNi43bDk1LjMtNTUuNGMtMjItOTQtNjguNy0xNzQuNy0xNDAtMjQyLjFsLTk2LjMsNTUuNGMtMjkuMi0yNC02Mi41LTQzLjQtMTAwLjEtNTguM1YzOC40QzU5NC42LDI0LjgsNTQ4LDE4LDUwMCwxOHMtOTQuNiw2LjgtMTQwLDIwLjR2MTEwLjhjLTM3LjYsMTQuOS03MSwzNC40LTEwMC4xLDU4LjNsLTk2LjMtNTUuNGMtNzEuMyw2Ny40LTExOCwxNDguMS0xNDAsMjQyLjFsOTUuMyw1NS40Yy01LjIsMzguOS01LjIsNzcuOCwwLDExNi43bC05NS4zLDU1LjRjMjIsOTQsNjguNywxNzQuNywxNDAsMjQyLjFsOTYuMy01NS40YzI5LjIsMjQsNjIuNSw0My40LDEwMC4xLDU4LjN2MTEwLjhjNDUuNCwxMy42LDkyLDIwLjQsMTQwLDIwLjRzOTQuNi02LjgsMTQwLTIwLjRWODY2LjdjMzcuNi0xNC45LDcxLTM0LjQsMTAwLjEtNTguM2w5Ni4zLDU1LjRjNzEuMy02Ny40LDExOC0xNDguMSwxNDAtMjQyLjFMODgxLjEsNTY2LjN6IE01MDAsMzMzYzQ4LDAsODkuMSwxNy4yLDEyMy41LDUxLjVTNjc1LDQ2MCw2NzUsNTA4cy0xNy4yLDg5LjEtNTEuNSwxMjMuNVM1NDgsNjgzLDUwMCw2ODNzLTg5LjEtMTcuMi0xMjMuNS01MS41UzMyNSw1NTYsMzI1LDUwOHMxNy4yLTg5LjEsNTEuNS0xMjMuNVM0NTIsMzMzLDUwMCwzMzN6IiBzdHlsZT0iZmlsbDojQUNBQ0FDIj48L3BhdGg+PC9nPjwvZz48L3N2Zz4gIA==">
                     </p>
                 </li>
                 <li @click="reading.chapter_index+=1" class="menu-item next">
                     <p>
-                        <img src="data:image/svg+xml;base64,CjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDEwMDAgMTAwMCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAwMCAxMDAwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPG1ldGFkYXRhPiDnn6Lph4/lm77moIfkuIvovb0gOiBodHRwOi8vd3d3LnNmb250LmNuLyA8L21ldGFkYXRhPjxnPjxnIHRyYW5zZm9ybT0ibWF0cml4KDEgMCAwIC0xIDAgMTAwOCkiPjxwYXRoIGQ9Ik01ODcuNSw5OThMOTkwLDUwOEw1ODcuNSwxOEw0MzAsMTU4bDIxMCwyNDVIMTB2MjEwaDYzMEw0MzAsODU4TDU4Ny41LDk5OHoiIHN0eWxlPSJmaWxsOiNBQ0FDQUMiPjwvcGF0aD48L2c+PC9nPjwvc3ZnPiAg">  
+                        <!-- iCon by SFont.Cn --> <img src="data:image/svg+xml;base64,CjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDEwMDAgMTAwMCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAwMCAxMDAwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPG1ldGFkYXRhPiDnn6Lph4/lm77moIfkuIvovb0gOiBodHRwOi8vd3d3LnNmb250LmNuLyA8L21ldGFkYXRhPjxnPjxnIHRyYW5zZm9ybT0ibWF0cml4KDEgMCAwIC0xIDAgMTAwOCkiPjxwYXRoIGQ9Ik01ODcuNSw5OThMOTkwLDUwOEw1ODcuNSwxOEw0MzAsMTU4bDIxMCwyNDVIMTB2MjEwaDYzMEw0MzAsODU4TDU4Ny41LDk5OHoiIHN0eWxlPSJmaWxsOiNBQ0FDQUMiPjwvcGF0aD48L2c+PC9nPjwvc3ZnPiAg">  
                     </p>
                 </li>
             </ul>
+            <!-- <p class="msg-text">{{msg}}</p> -->
         </div>
 
-        <div v-if="need_catalog" class="mask"></div>
+        <div v-if="need_setting||need_catalog" class="mask"></div>
+        <!-- 设置弹窗 -->
+        <ul v-if="need_setting" class="setting">
+            <p class="setting-title">阅读器设置</p>
+            <li v-for="item in setting" class="setting-item" :key="item.name">
+                <p>{{ item.name }}</p>
+                <p @click="reading.collected=!reading.collected" v-if="reading.collected" class="setting-on"></p>
+                <p @click="reading.collected=!reading.collected"  v-if="!reading.collected" class="setting-off"></p>
+            </li>
+        </ul>
 
         <!-- 目录弹窗 -->
-        <keep-alive>
-            <ul v-if="need_catalog" class="catalog" ref="catalog">
-                <!-- <p class="setting-title">目录</p> -->
-                <li v-for="(chapter,index) in reading.book_chapters_cache" @click="reading.chapter_index=index,need_catalog = !need_catalog" class="catalog-item" :key="index">
-                    <p>{{ chapter.title }}</p>
-                </li>
-            </ul>
-        </keep-alive>
+        <ul v-if="need_catalog" class="catalog" ref="catalog">
+            <!-- <p class="setting-title">目录</p> -->
+            <li v-for="(chapter,index) in reading.book_chapters_cache" @click="reading.chapter_index=index,need_catalog = !need_catalog" class="setting-item" :key="chapter.title">
+                <p>{{ chapter.title }}</p>
+            </li>
+        </ul>
 
         <!-- 章节文本 -->
         <div ref="text" v-if="reading.chapter_text" class="text">
@@ -83,7 +89,15 @@ export default {
                 collected:false
             },
             cache:false,
+            msg: false,
+            need_guid:false,
+            need_setting:false,
             need_catalog:false,
+            setting:[
+                {
+                    'name':'收藏本书',
+                },
+            ]
         }
     },
  
@@ -103,12 +117,14 @@ export default {
         // 校验
         if(this.cache){
            console.log('阅读器成功加载浏览器缓存'); 
+
         }
 
         // 第二步: 加载书籍
+
         // 获取通过路由传入的书籍ID
         this.reading.book_id = this.$route.query.book_id;
-
+        
         // 检查该书籍缓存是否存在
         // 结果为的值为字符串或未定义
         if(this.cache.books[this.reading.book_id]){
@@ -155,6 +171,8 @@ export default {
             }
             // 如果目录缓存存在，按照链接加载章节
             if (this.reading.book_chapters_cache){
+                // 设置标题为章节名
+                document.title = this.reading.book_chapters_cache[this.reading.chapter_index].title;
                 // 加载章节内容
                 this.load_chapter();
             } 
@@ -209,8 +227,8 @@ export default {
             let post_data = JSON.stringify({
                 'url':'http://chapter2.zhuishushenqi.com/chapter/'+escape(this.reading.book_chapters_cache[this.reading.chapter_index].link)
             });
-            // 设置标题为章节名
-            document.title = this.reading.book_chapters_cache[this.reading.chapter_index].title;
+            // 添加msg
+            this.msg = this.reading.book_chapters_cache[this.reading.chapter_index].title;
             axios({
                 method: 'post',
                 url: Config.PROX_GATE,
@@ -351,10 +369,11 @@ export default {
 }
 
 .menu-item {
+    
     position: relative;
+    
     width: 25%;
     z-index: 2;
-    cursor: pointer;
 }
 .menu-item p{
     display: flex;
@@ -380,7 +399,7 @@ export default {
     z-index: 2;
 }
 
-.catalog {
+.catalog,.setting {
     position: fixed;
     top: 50px;
     left: 25px;
@@ -393,15 +412,29 @@ export default {
     background-color: rgb(250, 235, 215);
 }
 
-.catalog-item {
+.setting-title {
+    text-align: center;
+    line-height: 50px;
+}
+
+.setting-item {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
-    padding-bottom: .5rem;
-    border-bottom: 1px solid #fff;
-    cursor: pointer;
 }
 
+.setting-on {
+    width: 20px;
+    height: 20px;
+    border-radius: 1rem;
+    background-color: rgb(14, 219, 14);
+}
+.setting-off {
+    width: 20px;
+    height: 20px;
+    border-radius: 1rem;
+    background-color: rgb(255, 70, 37);
+}
 
 
 </style>

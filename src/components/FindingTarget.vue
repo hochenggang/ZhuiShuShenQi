@@ -10,9 +10,9 @@
                     <router-link class="title" :to="{ path:'/booklist', query: { gender:'male',from:'sort', major: i.name, msg:i.name}}">
                         {{ i.name }}
                     </router-link> 
-                    <span class="count">
+                    <!-- <span class="count">
                         {{ i.bookCount }}
-                    </span>
+                    </span> -->
                 </li>
             </ul>
 
@@ -22,9 +22,9 @@
                     <router-link class="title" :to="{ path:'/booklist', query: { gender:'female',from:'sort', major: i.name, msg:i.name}}">
                         {{ i.name }}
                     </router-link> 
-                    <span class="count">
+                    <!-- <span class="count">
                         {{ i.bookCount }}
-                    </span>
+                    </span> -->
                 </li>
             </ul>
 
