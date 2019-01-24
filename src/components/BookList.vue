@@ -5,7 +5,7 @@
             <div v-if="Books">
                 <ul id="items">
                     <li class="item" v-for="book in Books" :key="book._id">
-                        <router-link class="title" :to="{ path:'/reader', query: { book_id: book['_id']}}">
+                        <router-link class="title" :to="{ path:'/reader', query: { bookId: book['_id']}}">
                             {{book['title']}}
                         </router-link> 
 
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import HeaderWithBack from "./HeaderWithBack";
+import HeaderWithBack from "./headerWithBack";
 import Config from "../config";
 
 export default {
@@ -54,12 +54,12 @@ export default {
     switch (this.query.from) {
       case "sort":
         // 请求分类
-        this.request(Config.API.BookByCat + '?gender='+this.query.gender+'&type=new&major='+this.query.major+'&minor='+(this.query.minor?this.query.minor:'')+'&start='+this.start+'&limit=20');
+        this.request(Config.API.bookByCat + '?gender='+this.query.gender+'&type=new&major='+this.query.major+'&minor='+(this.query.minor?this.query.minor:'')+'&start='+this.start+'&limit=20');
         break;
 
       case "ranking":
         // 请求排行
-        this.request(Config.API.BookByRanking + this.query.rankId);
+        this.request(Config.API.bookByRanking + this.query.rankId);
         break;
 
       default:
@@ -73,7 +73,7 @@ export default {
   },
   methods: {
     request: function(url) {
-      fetch(Config.PROX_GATE, {
+      fetch(Config.PROXY_GATEWAY, {
         method: "POST",
         body: JSON.stringify({
           url: url

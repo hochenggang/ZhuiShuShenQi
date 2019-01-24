@@ -37,14 +37,12 @@
         <div v-if="need_catalog" class="mask"></div>
 
         <!-- 目录弹窗 -->
-        <keep-alive>
-            <ul v-if="need_catalog" class="catalog" ref="catalog">
-                <!-- <p class="setting-title">目录</p> -->
-                <li v-for="(chapter,index) in reading.book_chapters_cache" @click="reading.chapter_index=index,need_catalog = !need_catalog" class="catalog-item" :key="index">
-                    <p>{{ chapter.title }}</p>
-                </li>
-            </ul>
-        </keep-alive>
+        <ul v-if="need_catalog" class="catalog" ref="catalog">
+            <!-- <p class="setting-title">目录</p> -->
+            <li v-for="(chapter,index) in reading.book_chapters_cache" @click="reading.chapter_index=index,need_catalog = !need_catalog" class="catalog-item" :key="index">
+                <p>{{ chapter.title }}</p>
+            </li>
+        </ul>
 
         <!-- 章节文本 -->
         <div ref="text" v-if="reading.chapter_text" class="text">

@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import HeaderWithSearch from "./HeaderWithSearch"
-import FuncSwich from "./FuncSwich"
+import HeaderWithSearch from "./headerWithSearch"
+import FuncSwich from "./funcSwich"
 export default {
   name: "Finding",
   components: {

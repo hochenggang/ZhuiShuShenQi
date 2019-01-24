@@ -6,40 +6,48 @@
 <script>
 
 export default {
-  name: 'App',
+  name: 'app'
 }
 
 </script>
 
 <style>
-body {
-    margin: 0;
+
+* {
+    box-sizing: border-box;
     padding: 0;
-    width: 100%;
-    font-size: 1rem;
-    font-family: "Microsoft YaHei";
+    margin: 0;
+}
+
+html {
+    font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+}
+
+body {
+    font-size: 16px;
     background-color: #FFFFFD;
 }
+
 p {
-    margin: 0;
     color: #323232;
 }
+
 a {
     cursor: pointer;
     text-decoration: none;
     color: #FFFFFD;
 }
+
 ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
+
 img {
     width: 100%;
     border-radius: .3rem;
 }
 
-* {
-    box-sizing: border-box;
-}
+
 </style>

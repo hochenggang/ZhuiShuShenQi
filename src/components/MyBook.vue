@@ -9,12 +9,12 @@
             <li class="book" v-for="book in Books" :key="book._id">
 
                 <span class="cover">
-                    <img v-bind:src="Config.API.Statics + book.cover">
+                    <img v-bind:src="Config.API.statics + book.cover">
                 </span>
 
                 <ul class="infos">
                     <li>
-                        <router-link class="title" :to="{ path:'/reader', query: { book_id: book['_id']}}">
+                        <router-link class="title" :to="{ path:'/reader', query: { bookId: book['_id']}}">
                             {{book.title}}
                         </router-link>
                     </li>
@@ -46,8 +46,8 @@
 </template>
 
 <script>
-import HeaderWithSearch from './HeaderWithSearch'
-import FuncSwich from './FuncSwich'
+import HeaderWithSearch from './headerWithSearch'
+import FuncSwich from './funcSwich'
 import Config from '../config'
 export default {
     name: 'MyBook',
@@ -68,7 +68,7 @@ export default {
             this.local_book_count = id_list.length;
             id_list.sort();
             id_list.forEach(id => {
-                fetch(Config.PROX_GATE, {
+                fetch(Config.PROXY_GATEWAY, {
                         method: "POST",
                         body: JSON.stringify({
                             'url': 'http://api.zhuishushenqi.com/book/' + id

@@ -5,7 +5,7 @@
             <div v-if="Search_data">
                 <ul id="items">
                     <li class="item" v-for="book in Search_data['books']" :key="book._id">
-                        <router-link class="title" :to="{ path:'/reader', query: { book_id: book['_id']}}">
+                        <router-link class="title" :to="{ path:'/reader', query: { bookId: book['_id']}}">
                             {{book['title']}}
                         </router-link> 
 
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import HeaderWithBack from "./HeaderWithBack";
+import HeaderWithBack from "./headerWithBack";
 import Config from "../config";
 
 export default {
@@ -51,10 +51,10 @@ export default {
   methods: {
     search: function() {
       this.key_word = this.$route.query.key_word;
-      fetch(Config.PROX_GATE, {
+      fetch(Config.PROXY_GATEWAY, {
         method: "POST",
         body: JSON.stringify({
-          url: Config.API.Search + this.key_word
+          url: Config.API.search + this.key_word
         })
       })
         .then(res => res.json())

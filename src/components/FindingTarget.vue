@@ -54,9 +54,8 @@
 </template>
 
 <script>
-import HeaderWithBack from "./HeaderWithBack";
+import HeaderWithBack from "./headerWithBack";
 import Config from "../config";
-
 export default {
   name: "FindingTarget",
   components: {
@@ -75,12 +74,12 @@ export default {
     switch (this.target) {
       case "sort":
         // 请求分类
-        this.request(Config.API.Cats, "sortData");
+        this.request(Config.API.cats, "sortData");
         break;
 
       case "ranking":
         // 请求排行
-        this.request(Config.API.Ranking, "rankingData");
+        this.request(Config.API.ranking, "rankingData");
         break;
 
       default:
@@ -89,7 +88,7 @@ export default {
   },
   methods: {
     request: function(url, to) {
-      fetch(Config.PROX_GATE, {
+      fetch(Config.PROXY_GATEWAY, {
         method: "POST",
         body: JSON.stringify({
           url: url
